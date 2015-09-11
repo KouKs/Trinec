@@ -1,2 +1,9 @@
-# Trinec
-Stránky města Třinec - Inzerce, firmy, diskuze, články....
+Třinec
+======
+Úvod
+----
+Webové stránky města Třinec
+- Inzerce
+- Firmy
+- Diskuze
+- Články
