@@ -7,7 +7,10 @@ and open the template in the editor.
     Created on : 12.9.2015, 11:40:27
     Author     : Pavel
 */
-
+a {
+    color: inherit;
+    text-decoration: none;
+}
 @font-face {
   font-family: 'Proxima Nova';
   src: url('../fonts/ProximaNova-Regular.otf');
