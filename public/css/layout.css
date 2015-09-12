@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12.9.2015, 11:40:27
+    Author     : Pavel
+*/
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/ProximaNova-Regular.otf');
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  font-weight: bold;
+  src: url('../fonts/ProximaNova-Bold.otf');
+}
+.shadow {
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+}
+.animate {
+  -webkit-transition: all linear 0.2s;
+     -moz-transition: all linear 0.2s;
+       -o-transition: all linear 0.2s;
+          transition: all linear 0.2s;
+}
