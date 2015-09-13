@@ -17,19 +17,14 @@ class KategorieForm extends Form
         $this->add(array(
             'name' => 'nazev',
             'type' => 'Text',
-            'options' => array(
-                'label' => 'Název kategorie',
-            ),
+
         ));
         $this->add(array(
             'name' => 'kategorie',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
-                'label' => 'Kategorie',
                 'empty_option' => 'Hlavní kategorie',
-                'value_options' => array(
-                    'test' => 'Test',
-                )
+                'value_options' => $kategorie
             ),
         ));
         $this->add(array(
