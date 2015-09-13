@@ -1,0 +1,22 @@
+<nav class="shadow">
+    <a class="animate" href="">kategorie</a>
+    <a class="animate" href="">log</a>
+    <a class="animate" href="">schvalování</a>
+    <a class="animate" href="">bannery</a>
+</nav>
+
+<div id="area">
+    <h3>Přidat kategorii</h3>
+    <?php 
+    $form = $this->form; 
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formRow($form->get('nazev'));
+    echo $this->formRow($form->get('kategorie'));
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag();
+    ?>
+    <h3>Seznam kategorií</h3>
+    
+</div>
