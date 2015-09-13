@@ -5,18 +5,40 @@
     <a class="animate" href="">bannery</a>
 </nav>
 
-<div id="area">
+<div class="shadow area">
     <h3>Přidat kategorii</h3>
-    <?php 
-    $form = $this->form; 
-    $form->prepare();
-
-    echo $this->form()->openTag($form);
-    echo $this->formRow($form->get('nazev'));
-    echo $this->formRow($form->get('kategorie'));
-    echo $this->formSubmit($form->get('submit'));
-    echo $this->form()->closeTag();
-    ?>
-    <h3>Seznam kategorií</h3>
     
+    <?php   $form = $this->form; 
+            $form->prepare();
+            echo $this->form()->openTag($form); ?>
+    <table class="table-form">
+        <tr>
+            <td>Název</td>
+            <td><?php echo $this->formRow($form->get('nazev')); ?></td>
+        </tr>
+        <tr>
+            <td>Hierarchie</td>
+            <td><?php echo $this->formRow($form->get('kategorie')); ?></td>
+        </tr>
+        <tr>
+            <td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
+        </tr>
+    </table>
+
+    <?php echo $this->form()->closeTag(); ?>
+</div>
+<div class="shadow area">
+    <h3>Seznam kategorií</h3>
+    <table class="table-stripped table-hover">
+        <tr>
+            <th>Název</th>
+            <th>Rodičovská kategorie</th>
+        </tr>
+        <?php foreach( $this->kategorie as $row ) : ?>
+            <tr>
+                <td><?php echo $row->nazev; ?></td>
+                <td></td>
+            </tr>
+        <?php endforeach ?>
+    </table>
 </div>

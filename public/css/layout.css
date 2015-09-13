@@ -35,7 +35,7 @@ a {
 /**
  * Tabulka - fakt jsem to dělal sám
  */
-.table-stripped {
+table {
     width: 100%;
     padding: 0;
     margin: 0;
@@ -69,6 +69,20 @@ a {
     border-right: none;
 }
 
+.table-form td {
+   width: 46%; 
+   padding: 5px 3%;
+}
+.table-form td:first-child {
+    text-align: right;
+}
+.table-form td:last-child {
+    text-align: left;
+}
+.table-form td.colspan {
+    text-align: center;
+    width: 96%;     
+}
 /**
  * Ikony
  */
