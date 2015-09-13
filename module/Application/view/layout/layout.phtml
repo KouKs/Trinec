@@ -18,16 +18,17 @@
 
         <!-- Scripts -->
         <?php echo $this->headScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery.min.js'))
+            ->prependFile($this->basePath('js/bootstrap.js'), 'text/javascript')
+            ->prependFile($this->basePath('js/load.js'), 'text/javascript')
+            ->prependFile('http://code.jquery.com/jquery.min.js', 'text/javascript')
             ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
         ; ?>
 
     </head>
     <body>
         <div id="page">
-            <header class="shadow">
+            <header class="shadow width">
                 <div id="header-top">
                     <a href="" ><h1 style="float: left">Třinec.cz</h1></a>
                     <input placeholder="Hledat" id="search" type="text">
@@ -46,7 +47,7 @@
             <div id="content">
                 <div class="shadow" id="banner-left"></div>
                 <div class="shadow" id="banner-right"></div>
-                <div id="container">
+                <div class="width" id="container">
                     <?php echo $this->content; ?>
                 </div>
             </div>

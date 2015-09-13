@@ -56,6 +56,7 @@ a {
 .table-stripped tr th {
     background-color: #ddd;
     font-weight: bold;
+    border-bottom: 1px solid #009CFF;
 }
 
 .table-stripped tr td.number {
@@ -64,12 +65,10 @@ a {
 .table-stripped tr td.bold {
    font-weight: bold;
 }
-.table-stripped tr td:last-child {
-    border: none;
+.table-stripped tr td:last-child , .table-stripped tr th:last-child {
+    border-right: none;
 }
-.table-hover tr:hover th {
-    
-}
+
 /**
  * Ikony
  */

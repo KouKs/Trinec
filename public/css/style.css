@@ -18,20 +18,21 @@ body {
 
 #page , #content {
     width: 100%;
+    display: block;
+    overflow: hidden;
 }
 
 header {
-    width: 900px;
     margin: 0 auto 20px auto;
+
     
-    display: block; 
+    display: block;
     overflow: hidden;
-    
 }
 
 #header-top {
-    width: 87%; height: 27px;
-    padding: 46.5px 0 46.5px 13%;
+    width: 85%; height: 27px;
+    padding: 46.5px 0 46.5px 15%;
     background: url( ../img/trinec-logo.png ) 10px 10px no-repeat #fff;
     border-bottom: 1px solid #ddd;
 }
@@ -46,7 +47,6 @@ nav {
     
 }
 nav a {
-    padding: 20px 20px 18px 20px;
     font-family: 'Proxima Nova';
     font-weight: bold;
     font-size: 14px;
@@ -74,26 +74,29 @@ nav a#login:hover {
 } 
 
 #header-banner {
-    width: 900px; height: 299px;
+    width: 100%; height: 299px;
     background: url( ../img/banner.png );
 }
 
 
-#banner-left { background-color: #fff; width: 150px; height: 500px; position: absolute; left: 0; }
-#banner-right { background-color: #fff; width: 150px; height: 500px; position: absolute; right: 0; }
+#banner-left { background-color: #fff; width: 0px; height: 500px; position: absolute; left: 0 }
+#banner-right { background-color: #fff; width: 0px; height: 500px; position: absolute; right: 0 }
 
-#container { width: 900px; margin: 0 auto;}
+#container { min-height: 900px; margin: 0 auto;}
+
+#inzeraty , #firmy , #diskuze , #clanky {
+    display: none;
+}
 
 #inzeraty , #firmy {
-    width: 440px;
     background-color: #fff;
-    float: left;
     margin-bottom: 20px;
 }
-#inzeraty { margin-right: 20px;  }
+#inzeraty { float: left; }
+#firmy { float: right;  }
 
 #diskuze , #clanky {
-    width: 900px;
+    width: 100%;
     background-color: #fff;
     float: left;
     margin-bottom: 20px;
@@ -116,4 +119,36 @@ footer {
     margin-bottom: 5px;
     background-color: #fff;
     border-radius: 5px;
+}
+
+
+
+/**
+ * media
+ */
+
+@media screen and (min-width: 850px) {
+    .width {
+        width: 500px;
+    }
+    #inzeraty , #firmy { width: 100%; }
+    nav a { padding: 20px 10px 18px 10px; }
+    
+}
+
+@media screen and (min-width: 1050px) {
+    .width {
+        width: 700px;
+    }
+    #inzeraty , #firmy { width: 340px; }
+    nav a { padding: 20px 20px 18px 20px; }
+}
+
+
+@media screen and (min-width: 1250px) {
+    .width {
+        width: 900px;
+    }
+    #inzeraty , #firmy { width: 440px; }
+    nav a { padding: 20px 20px 18px 20px; }
 }
