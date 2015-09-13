@@ -11,6 +11,10 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Application\Model\Kategorie;
+use Application\Model\KategorieTable;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
 
 class Module
 {
@@ -33,6 +37,30 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
+            ),
+        );
+    }
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                /**
+                 * kategorie
+                 */
+                'Application\Model\KategorieTable' =>  function($sm) {
+                    $tableGateway = $sm->get('KategorieTableGateway');
+                    $table = new KategorieTable($tableGateway);
+                    return $table;
+                },
+                'KategorieTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Kategorie());
+                    return new TableGateway('kategorie', $dbAdapter, null, $resultSetPrototype);
+                },
+                /**
+                 * dalsi
+                 */
             ),
         );
     }

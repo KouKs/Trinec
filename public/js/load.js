@@ -9,13 +9,13 @@ $(document).ready( function( ) {
     $("#inzeraty").fadeIn("fast",function( ) {
         $("#firmy").fadeIn("fast",function( ) {
             $("#diskuze").fadeIn("fast",function( ) {
-                $("#clanky").fadeIn("fast",function( ) {
-                    $("#banner-left").animate( { width: '150px'} );
-                    $("#banner-right").animate( { width: '150px'} );
-                });
+                $("#clanky").fadeIn("fast");
             });
         });
     });
+    $("#banner-left").animate( { width: '150px'} );
+    $("#banner-right").animate( { width: '150px'} );
+    $(".area").fadeIn("slow");
 });
 
 
