@@ -127,7 +127,7 @@ footer {
  * media
  */
 
-@media screen and (min-width: 850px) {
+@media only screen and (min-width: 850px) {
     .width {
         width: 500px;
     }
@@ -136,7 +136,7 @@ footer {
     
 }
 
-@media screen and (min-width: 1050px) {
+@media only screen and (min-width: 1050px) {
     .width {
         width: 700px;
     }
@@ -145,7 +145,7 @@ footer {
 }
 
 
-@media screen and (min-width: 1250px) {
+@media only screen and (min-width: 1250px) {
     .width {
         width: 900px;
     }

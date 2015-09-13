@@ -56,7 +56,7 @@ a {
 .table-stripped tr th {
     background-color: #ddd;
     font-weight: bold;
-    border-bottom: 1px solid #009CFF;
+    border-bottom: 1px solid #ccc;
 }
 
 .table-stripped tr td.number {
