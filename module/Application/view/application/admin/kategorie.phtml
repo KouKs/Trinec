@@ -7,6 +7,7 @@
 
 <div class="shadow area">
     <h3>Přidat kategorii</h3>
+    <?php echo $this->dir; ?>
     
     <?php   $form = $this->form; 
             $form->prepare();
@@ -36,9 +37,15 @@
         </tr>
         <?php foreach( $this->kategorie as $row ) : ?>
             <tr>
-                <td><?php echo $row->nazev; ?></td>
-                <td></td>
+                <td><?php echo $row["data"]->nazev; ?></td>
+                <td><strong>Hlavní kategorie</strong></td>
             </tr>
-        <?php endforeach ?>
+            <?php if( !empty( $row["children"] ) ) : foreach( $row["children"] as $child ) : ?>
+                <tr>
+                    <td><?php echo $child["data"]->nazev; ?></td>
+                    <td><?php echo $child["parentString"]; ?></td>
+                </tr>
+            <?php endforeach; endif; ?>
+        <?php endforeach; ?>
     </table>
 </div>

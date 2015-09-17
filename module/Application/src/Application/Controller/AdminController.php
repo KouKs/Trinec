@@ -20,22 +20,34 @@ class AdminController extends AbstractActionController
     {
         $table = $this->getCategoryTable();
         $form = new KategorieForm( );
+        $view = new ViewModel();
+        //$reader = new \Zend\Config\Reader\Ini();
+        //$messages = $reader->fromFile( '../../../../../config/autoload/messages.ini');
         
         $request = $this->getRequest();
-        if ($request->isPost())
+        if( $request->isPost( ) )
         {
             $cat = new Kategorie( );
-            $data = array( 
-                'nazev' => $request->getPost()->nazev,
-                'level' => $request->getPost()->kategorie ? 1 : 0,
-                'parent' => $request->getPost()->kategorie,
-                'aktivni' => 1,
-            );
-            $cat->exchangeArray( $data );
-            $table->add( $cat );
-    }
+            $form->setInputFilter( $cat->getInputFilter( ) );
+            $form->setData( $request->getPost( ) );
+            
+            if( $form->isValid( ) )
+            {
+                $data = array( 
+                    'nazev' => $form->getData()["nazev"],
+                    'level' => $form->getData()["kategorie"] ? 1 : 0,
+                    'parent' => $form->getData()["kategorie"],
+                    'aktivni' => 1,
+                );
+                $cat->exchangeArray( $data );
+                $table->add( $cat );
+            }
+            else
+            {
+                //$view->error = $messages["admin"]["error"]["category"]["inputInvalid"];
+            }
+        }
         
-        $view = new ViewModel();
         $view->kategorie = $this->buildHierarchy( $table->fetchAll( ) );
         $view->form = new KategorieForm( null , $this->buildSelect( $table->fetchAll( ) ) );
         return $view;
@@ -62,8 +74,27 @@ class AdminController extends AbstractActionController
         }
         return $ret;
     }
-    private function buildHierarchy( $result )
+    private function buildHierarchy( $__result )
     {
-        return $result;
+        $ret = $result = [ ];
+        foreach( $__result as $temp )
+        {
+            $result[] = $temp;
+        }
+        foreach( $result as $row )
+        {
+            if( $row->level == 0 )
+            {
+                $ret[ $row->id ]["data"] = $row;
+            }
+            foreach( $result as $child )
+            {
+                if( $child->parent == $row->id )
+                {
+                    $ret[ $row->id ]["children"][] = array( "data" => $child , "parentString" => $row->nazev );
+                }
+            }
+        }
+        return $ret;
     }
 }

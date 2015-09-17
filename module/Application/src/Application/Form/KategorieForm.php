@@ -17,7 +17,6 @@ class KategorieForm extends Form
         $this->add(array(
             'name' => 'nazev',
             'type' => 'Text',
-
         ));
         $this->add(array(
             'name' => 'kategorie',
@@ -32,40 +31,8 @@ class KategorieForm extends Form
             'type' => 'Submit',
             'attributes' => array(
                 'value' => 'Přidat',
+                'class' => 'btn btn-info',
             ),
         ));
     }
 }
-/*
-$form = new Form('my-form');
-   $form->add(array(
-       'type' => 'Zend\Form\Element\MultiCheckbox',
-       'name' => 'multi-checkbox',
-       'options' => array(
-           'label' => 'What do you like ?',
-           'value_options' => array(
-               array(
-                   'value' => '0',
-                   'label' => 'Apple',
-                   'selected' => false,
-                   'disabled' => false,
-                   'attributes' => array(
-                       'id' => 'apple_option',
-                       'data-fruit' => 'apple',
-                   ),
-                   'label_attributes' => array(
-                       'id' => 'apple_label',
-                   ),
-               ),
-               array(
-                   'value' => '1',
-                   'label' => 'Orange',
-                   'selected' => true,
-               ),
-               array(
-                   'value' => '2',
-                   'label' => 'Lemon',
-               ),
-           ),
-       ),
-   ));*/
