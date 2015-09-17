@@ -16,33 +16,25 @@ $(document).ready( function( ) {
     $("#banner-left").animate( { width: '150px'} );
     $("#banner-right").animate( { width: '150px'} );
     $(".area").fadeIn("slow");
+
+    $('.leave').leavePage();
 });
 
 
 /* 
 * Function to animate leaving a page
-
+*/
 $.fn.leavePage = function() {   
     
   this.click(function(event){
 
-    // Don't go to the next page yet.
     event.preventDefault();
     linkLocation = this.href;
     
-    // Fade out this page first.
-    $('body').fadeOut(500, function(){
-      
-      // Then go to the next page.
+    $("#banner-left").animate( { width: '0px'} );
+    $("#banner-right").animate( { width: '0px'} );
+    $("#container").fadeOut("slow",function(){
       window.location = linkLocation;
     });      
   }); 
 };
-
-
-/* 
-* Call the leavePage function upon link clicks with the "transition" class
-
-$('.transition').leavePage();
-
-*/

@@ -21,7 +21,9 @@ body {
     display: block;
     overflow: hidden;
 }
-
+#content {
+    min-height: 900px;
+}
 header {
     margin: 0 auto 20px auto;
 
@@ -82,7 +84,7 @@ nav a#login:hover {
 #banner-left { background-color: #fff; width: 0px; height: 500px; position: absolute; left: 0 }
 #banner-right { background-color: #fff; width: 0px; height: 500px; position: absolute; right: 0 }
 
-#container { min-height: 900px; margin: 0 auto;}
+#container { margin: 0 auto;}
 
 #inzeraty , #firmy , #diskuze , #clanky {
     display: none;
