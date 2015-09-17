@@ -7,24 +7,24 @@
 
 <div class="shadow area">
     <h3>Přidat kategorii</h3>
-    <?php echo $this->dir; ?>
     
-    <?php   $form = $this->form; 
+    <?php   $form = $this->form;
             $form->prepare();
             echo $this->form()->openTag($form); ?>
-    <table class="table-form">
-        <tr>
-            <td>Název</td>
-            <td><?php echo $this->formRow($form->get('nazev')); ?></td>
-        </tr>
-        <tr>
-            <td>Hierarchie</td>
-            <td><?php echo $this->formRow($form->get('kategorie')); ?></td>
-        </tr>
-        <tr>
-            <td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
-        </tr>
-    </table>
+    
+        <table class="table-form">
+            <tr>
+                <td>Název</td>
+                <td><?php echo $this->formRow($form->get('nazev')); ?></td>
+            </tr>
+            <tr>
+                <td>Hierarchie</td>
+                <td><?php echo $this->formRow($form->get('kategorie')); ?></td>
+            </tr>
+            <tr>
+                <td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
+            </tr>
+        </table>
 
     <?php echo $this->form()->closeTag(); ?>
 </div>
