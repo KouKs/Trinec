@@ -22,7 +22,6 @@ class KategorieForm extends Form
             'name' => 'kategorie',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
-                'empty_option' => 'Hlavní kategorie',
                 'value_options' => $kategorie
             ),
         ));

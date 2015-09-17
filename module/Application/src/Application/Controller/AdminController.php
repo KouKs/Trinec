@@ -12,15 +12,13 @@ class AdminController extends AbstractActionController
     
     public function indexAction()
     {
-        //$this->redirector('kategorie', 'admin');
-        return new ViewModel();
+        //return $this->redirector()->toRoute('admin/kategorie/');
     }
 
     public function kategorieAction()
     {
         $table = $this->getCategoryTable();
-        $form = new KategorieForm( );
-        $view = new ViewModel();
+        $form = new KategorieForm( null , $this->buildSelect( $table->fetchAll( ) ) );
         //$reader = new \Zend\Config\Reader\Ini();
         //$messages = $reader->fromFile( '../../../../../config/autoload/messages.ini');
         
@@ -44,13 +42,17 @@ class AdminController extends AbstractActionController
             }
             else
             {
+                //$this->flashMessenger()->addMessage('You are now logged in.');
                 //$view->error = $messages["admin"]["error"]["category"]["inputInvalid"];
             }
         }
+            
+        $kategorie = $this->buildHierarchy( $table->fetchAll( ) );
         
-        $view->kategorie = $this->buildHierarchy( $table->fetchAll( ) );
-        $view->form = new KategorieForm( null , $this->buildSelect( $table->fetchAll( ) ) );
-        return $view;
+        return array( 
+            'kategorie'     => $kategorie,
+            'form'          => $form,
+        );
     }
     /**
      * kategorie
@@ -61,7 +63,7 @@ class AdminController extends AbstractActionController
     }
     private function buildSelect( $result )
     {
-        $ret = [];
+        $ret = array( "Hlavní kategorie" );
         foreach( $result as $row )
         {   
             if( !$row->level )
