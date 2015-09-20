@@ -31,7 +31,9 @@ a {
        -o-transition: all linear 0.2s;
           transition: all linear 0.2s;
 }
-
+.hid {
+    visibility: hidden;
+}
 /**
  * Tabulka - fakt jsem to dělal sám
  */

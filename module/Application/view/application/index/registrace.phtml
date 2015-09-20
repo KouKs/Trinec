@@ -1,0 +1,30 @@
+<div class="shadow area">
+    <h3>Registrace</h3>
+    <?php   $form = $this->form;
+            $form->prepare();
+            echo $this->form()->openTag($form); ?>
+    
+        <table class="table-form">
+            <tr>
+                <td>Nick</td>
+                <td><?php echo $this->formRow($form->get('nick')); ?></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><?php echo $this->formRow($form->get('email')); ?></td>
+            </tr>
+            <tr>
+                <td>Heslo</td>
+                <td><?php echo $this->formRow($form->get('heslo')); ?></td>
+            </tr>
+            <tr>
+                <td>Heslo znovu</td>
+                <td><?php echo $this->formRow($form->get('heslo_repeat')); ?></td>
+            </tr>
+            <tr>
+                <td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
+            </tr>
+        </table>
+
+    <?php echo $this->form()->closeTag(); ?>
+</div>

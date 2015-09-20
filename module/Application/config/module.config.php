@@ -74,7 +74,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Admin' => 'Application\Controller\AdminController'
+            'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Profil' => 'Application\Controller\ProfilController'
         ),
     ),
     'view_manager' => array(

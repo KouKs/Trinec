@@ -1,0 +1,22 @@
+<div class="shadow area">
+    <h3>Přihlášení</h3>
+    <?php   $form = $this->form;
+            $form->prepare();
+            echo $this->form()->openTag($form); ?>
+    
+        <table class="table-form">
+            <tr>
+                <td>Jméno</td>
+                <td><?php echo $this->formRow($form->get('nick')); ?></td>
+            </tr>
+            <tr>
+                <td>Heslo</td>
+                <td><?php echo $this->formRow($form->get('heslo')); ?></td>
+            </tr>
+            <tr>
+                <td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
+            </tr>
+        </table>
+
+    <?php echo $this->form()->closeTag(); ?>
+</div>
