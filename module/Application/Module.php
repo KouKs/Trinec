@@ -95,4 +95,19 @@ class Module
         $sessionManager->start();
         Container::setDefaultManager($sessionManager);
     }
+    
+    /**
+     * @param route = [array] [ messages_module, messages_type, messages_id ]
+     * @param params [array] [ 'placeholder' => 'replacement' ] | OPTIONAL
+     */
+    static public function getMessage( $route, $params = [] ) {
+        $config = parse_ini_file(__DIR__ . '/../../config/autoload/messages.ini' , true);
+        
+        $return = $config[ $route[0] ][ $route[1] ][ $route[2] ];
+        foreach ( $params as $search => $value ) {
+            $return = str_replace( "%".$search."%", $value, $return);
+        }
+        
+        return $return;
+    }
 }

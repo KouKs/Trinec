@@ -10,6 +10,8 @@ class ProfilController extends AbstractActionController
     private $logged;
     
     public function __construct( ) {
+        var_dump( \Application\Module::getMessage( [ 'admin', 'error', 'inputInvalid' ], [ 'val' => 'kategorie' ] ) );
+        die();
         $this->logged = new Container('user');
         if( !isset( $this->logged->nick ) ) {
             // nepřihlášený uživatel
