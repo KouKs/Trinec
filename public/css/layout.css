@@ -42,7 +42,6 @@ table {
     padding: 0;
     margin: 0;
 }
-
 .table-stripped tr:nth-child(even) {
     background-color: #fff;
 }
@@ -96,3 +95,4 @@ table {
 .icon-vip { background: url( ../img/vip.png ); }
 .icon-luxury { background: url( ../img/luxury.png ); }
 .icon-firm { background: url( ../img/firma.png ); }
+.icon-delete {};

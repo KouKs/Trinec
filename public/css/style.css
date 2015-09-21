@@ -129,6 +129,10 @@ footer {
     margin-top: 20px;
 }
 
+.area:first-child {
+    margin: 0;
+}
+
 .area label {
     width: 50%;
     padding: 0 25%;

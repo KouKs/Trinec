@@ -9,7 +9,7 @@ use Application\Model\Kategorie;
 
 class AdminController extends AbstractActionController
 {
-    
+
     public function indexAction()
     {
         //return $this->redirector()->toRoute('admin/kategorie/');
@@ -21,14 +21,14 @@ class AdminController extends AbstractActionController
         $form = new KategorieForm( null , $this->buildSelect( $table->fetchAll( ) ) );
         //$reader = new \Zend\Config\Reader\Ini();
         //$messages = $reader->fromFile( '../../../../../config/autoload/messages.ini');
-        
+
         $request = $this->getRequest();
         if( $request->isPost( ) )
         {
             $cat = new Kategorie( );
             $form->setInputFilter( $cat->getInputFilter( ) );
             $form->setData( $request->getPost( ) );
-            
+
             if( $form->isValid( ) )
             {
                 $data = array( 
@@ -46,14 +46,15 @@ class AdminController extends AbstractActionController
                 //$view->error = $messages["admin"]["error"]["category"]["inputInvalid"];
             }
         }
-            
+
         $kategorie = $this->buildHierarchy( $table->fetchAll( ) );
-        
+
         return array( 
             'kategorie'     => $kategorie,
             'form'          => $form,
         );
     }
+
     /**
      * kategorie
      */
@@ -61,7 +62,8 @@ class AdminController extends AbstractActionController
     {
         return $this->getServiceLocator()->get('Application\Model\KategorieTable');
     }
-    private function buildSelect( $result )
+
+    private function buildSelect($result)
     {
         $ret = array( "Hlavní kategorie" );
         foreach( $result as $row )
@@ -76,7 +78,8 @@ class AdminController extends AbstractActionController
         }
         return $ret;
     }
-    private function buildHierarchy( $__result )
+
+    private function buildHierarchy($__result)
     {
         $ret = $result = [ ];
         foreach( $__result as $temp )
@@ -99,4 +102,28 @@ class AdminController extends AbstractActionController
         }
         return $ret;
     }
+
+    public function editcategoryAction()
+    {
+        $id = $this->params()->fromPost('id');
+        $value = $this->params()->fromPost('value');
+
+        $table = $this->getCategoryTable();
+        $table->edit( $id , array( "nazev" => $value ) );
+
+        return $this->response;
+    }
+
+    public function deletecategoryAction()
+    {
+        $id = $this->params()->fromPost('id');
+
+        $table = $this->getCategoryTable();
+        $table->delete( $id );
+
+        return $this->response;
+    }
+
+
 }
+

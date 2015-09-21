@@ -10,3 +10,4 @@ nbproject
 composer.lock
 vendor
 composer.phar
+public/js/bootstrap.js

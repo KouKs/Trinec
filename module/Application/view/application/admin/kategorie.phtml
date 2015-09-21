@@ -34,18 +34,72 @@
         <tr>
             <th>Název</th>
             <th>Rodičovská kategorie</th>
+            <th></th>
         </tr>
         <?php foreach( $this->kategorie as $row ) : ?>
-            <tr>
-                <td><?php echo $row["data"]->nazev; ?></td>
+            <tr id="cat-<?php echo $row["data"]->id; ?>">
+                <td width="50%"><input onKeyUp="toggleButton( this )" type="text" value="<?php echo $row["data"]->nazev; ?>"/>
+                    <button class="btn btn-info"
+                            style="display: none"
+                            onClick="update( '<?php echo $row["data"]->id; ?>' , $(this).prev().val() , this )">Změnit</button>
+                </td>
                 <td><strong>Hlavní kategorie</strong></td>
+                <td width="32px">
+                    <?php if( empty( $row["children"] ) ) : ?>
+                        <button class="btn btn-danger" onClick="_delete( '<?php echo $row["data"]->id; ?>' )">&nbsp;</button>
+                    <?php endif; ?>
+                </td>
             </tr>
             <?php if( !empty( $row["children"] ) ) : foreach( $row["children"] as $child ) : ?>
-                <tr>
-                    <td><?php echo $child["data"]->nazev; ?></td>
+                <tr id="cat-<?php echo $child["data"]->id; ?>">
+                    <td><input onKeyUp="toggleButton( this )" type="text" value="<?php echo $child["data"]->nazev; ?>"/>
+                        <button class="btn btn-info"
+                                style="display: none"
+                                onClick="update( '<?php echo $child["data"]->id; ?>' , $(this).prev().val() , this )">Změnit</button>
+                    </td>
                     <td><?php echo $child["parentString"]; ?></td>
+                    <td width="32px"><button class="btn btn-danger"
+                                             onClick="_delete( '<?php echo $child["data"]->id; ?>' )">&nbsp;</button></td>
                 </tr>
             <?php endforeach; endif; ?>
         <?php endforeach; ?>
     </table>
 </div>
+
+
+<script type="text/javascript"> 
+    function update( id , value , button ) {
+        
+        $.post( _URL + "admin/editcategory" , { id: id, value: value },
+            function(obj) {
+                $(button).removeClass('btn-info').addClass('btn-success');
+                $(button).fadeOut( 1000 );
+            }
+        );
+        return false;
+    }
+    
+    function _delete( id ) {
+        
+        if( !confirm("Opravdu smazat?") ) return false;
+        
+        $.post( _URL + "admin/deletecategory" , { id: id },
+            function(obj) {
+                $("#cat-" + id ).fadeOut( );
+            }
+        );
+        return false;
+    }
+    
+    function toggleButton( input )
+    {
+        if( input.value === input.defaultValue )
+        {
+            $( input ).next( ).hide();
+        }
+        else
+        {
+            $( input ).next( ).show();
+        }
+    }
+</script>

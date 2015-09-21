@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 $(document).ready( function( ) {
     $("#container").fadeIn("slow",function( ) {
         $("#banner-left").animate( { width: '150px'} );

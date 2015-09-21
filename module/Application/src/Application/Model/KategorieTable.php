@@ -32,6 +32,19 @@ class KategorieTable {
             'aktivni' => $cat->aktivni,
         );
         if( !$this->tableGateway->insert( $data ) )
-            throw new \Exception( "xD" );
+            throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
+    }
+    
+    public function edit( $id , $data )
+    {
+        
+        if( !$this->tableGateway->update( $data , [ 'id' => $id ] ) )
+            throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
+    }
+    
+    public function delete( $id )
+    {
+        if( !$this->tableGateway->delete( [ 'id' => $id ] ) )
+            throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
     }
 }
