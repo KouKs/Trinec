@@ -48,6 +48,26 @@ return array(
                             ),
                         ),
                     ),
+                    'login' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'login',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Index',
+                                'action' => 'login',
+                            ),
+                        ),
+                    ),
+                    'register' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'registrace',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Index',
+                                'action' => 'registrace',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

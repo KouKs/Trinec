@@ -47,7 +47,9 @@ class IndexController extends AbstractActionController
                                 foreach( $user as $u ) {
                                     $logged->nick = $u->nick;
                                     $logged->admin = $u->admin;
-                                    // redirect
+                                    return $this->redirect()->toRoute('application/default', array(
+                                                'controller' => 'profil'
+                                    ));
                                 }
                             } else {
                                 // chyba
@@ -62,12 +64,9 @@ class IndexController extends AbstractActionController
                         'form'          => $form
                     );
                 } else {
-                    echo $this->redirect()->toRoute('application', array(
-                                'controller' => 'profil',
-                                'action' =>  'index'
+                    return $this->redirect()->toRoute('application/default', array(
+                                'controller' => 'profil'
                     ));
-                    //$logged->getManager()->getStorage()->clear();
-                    die();
                 }
     }
 
@@ -104,7 +103,7 @@ class IndexController extends AbstractActionController
                                     if( $table->register( $register ) ) {
                                         $logged->nick = $register->nick;
                                         $logged->admin = 0;
-                                        // redirect
+                                            // redirect na předchozí stránku
                                     } else {
                                         // chyba
                                     }
@@ -121,12 +120,9 @@ class IndexController extends AbstractActionController
                         'form'          => $form
                     );
                 } else {
-                    echo $this->redirect()->toRoute('application', array(
-                                'controller' => 'profil',
-                                'action' =>  'index'
+                    return $this->redirect()->toRoute('application/default', array(
+                                'controller' => 'profil'
                     ));
-                    //$logged->getManager()->getStorage()->clear();
-                    die();
                 }
     }
 

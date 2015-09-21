@@ -65,7 +65,7 @@
             value = 0;
         }
         
-        $.post("/trinec_cz/profil/edit", { 'row': row, 'value': value },
+        $.post( _URL + "profil/edit", { 'row': row, 'value': value },
             function(obj) {
                 $( "#" + row + "_btn" ).css("visibility", "hidden");
             }
