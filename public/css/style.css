@@ -132,7 +132,9 @@ footer {
 .area:first-child {
     margin: 0;
 }
-
+.area:last-child {
+    margin-bottom: 20px;
+}
 .area label {
     width: 50%;
     padding: 0 25%;

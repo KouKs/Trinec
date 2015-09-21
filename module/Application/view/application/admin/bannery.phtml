@@ -7,5 +7,22 @@
 
 <div class="shadow area">
     <h3>Přehled</h3>
-
+    <table class="schedule table-hover">
+        <tr>
+            <th width="4%">Čas</th>
+            <th width="24%">Banner #1</th>
+            <th width="24%">Banner #2</th>
+            <th width="24%">Banner #3</th>
+            <th width="24%">Banner #4</th>
+        </tr>
+        <?php for( $x = 0 ; $x < 24 ; $x += 2) : ?>
+            <tr>
+                <td><?php echo $x . ":00"; ?></td>
+                <td><button class="btn btn-danger">Typekk (26. 3. 2016)</button></td>
+                <td><button class="btn btn-success">Volné</button></td>
+                <td><button class="btn btn-success">Volné</button></td>
+                <td><button class="btn btn-danger">Alena (18. 12. 2015)</button></td>
+            </tr>
+        <?php endfor; ?>
+    </table>
 </div>

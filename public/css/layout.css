@@ -84,6 +84,30 @@ table {
     text-align: center;
     width: 96%;     
 }
+
+.schedule {
+}
+.schedule tr {
+    border-bottom: 1px solid #ccc;
+}
+.schedule th {
+    background-color: #ddd;
+    padding: 5px;
+    font-family: 'Proxima Nova';
+    font-size: 14px;    
+}
+.schedule td {
+    border-right: 1px solid #ccc;
+    text-align: center;
+}
+.schedule td:first-child {
+    text-align: right;
+    padding: 5px;
+    font-family: 'Proxima Nova';
+    font-size: 14px;    
+}
+
+
 /**
  * Ikony
  */
