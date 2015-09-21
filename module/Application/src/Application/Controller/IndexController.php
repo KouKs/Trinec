@@ -6,25 +6,34 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 
-
 use Zend\Session\Container;
 use Application\Form\LoginForm;
 use Application\Form\RegisterForm;
 use Application\Model\User;
+use Application\Model\Msg;
 
 class IndexController extends AbstractActionController
 {
+    public $msg;
+    
+    private $logged;
+    
+    public function onDispatch(\Zend\Mvc\MvcEvent $e) {
+        $this->msg = new Msg;
+        
+        $this->logged = new Container('user');
 
+        return parent::onDispatch($e);
+    }
+    
     public function indexAction()
     {
         return new ViewModel();
     }
 
     public function loginAction()
-    {
-        $logged = new Container('user');
-                
-                if( !isset( $logged->nick ) ) {
+    {          
+                if( !isset( $this->logged->nick ) ) {
                     $form = new LoginForm();
                     $request = $this->getRequest();
                     if( $request->isPost( ) )
@@ -45,23 +54,24 @@ class IndexController extends AbstractActionController
                             
                             if( $user = $table->login( $login ) ) {
                                 foreach( $user as $u ) {
-                                    $logged->nick = $u->nick;
-                                    $logged->admin = $u->admin;
+                                    $this->logged->nick = $u->nick;
+                                    $this->logged->admin = $u->admin;
                                     return $this->redirect()->toRoute('application/default', array(
                                                 'controller' => 'profil'
                                     ));
                                 }
                             } else {
-                                // chyba
+                                $error = $this->msg->get( 'login.error.invalidCredentials');
                             }
                         }
                         else
                         {
-                            // není validní
+                            $error = $this->msg->get( 'form.error.invalidData');
                         }
                     }
                     return array( 
-                        'form'          => $form
+                        'form'          => $form,
+                        'error'         => isset( $error ) ? $error : null,
                     );
                 } else {
                     return $this->redirect()->toRoute('application/default', array(
@@ -77,9 +87,8 @@ class IndexController extends AbstractActionController
 
     public function registraceAction()
     {
-        $logged = new Container('user');
                 
-                if( !isset( $logged->nick ) ) {
+                if( !isset( $this->logged->nick ) ) {
                     $form = new RegisterForm();
                     $request = $this->getRequest();
                     if( $request->isPost( ) )
@@ -99,25 +108,30 @@ class IndexController extends AbstractActionController
                                     'email' => $form->getData()['email']
                                 );
                                 $register->exchangeArray( $data );
-
-                                    if( $table->register( $register ) ) {
-                                        $logged->nick = $register->nick;
-                                        $logged->admin = 0;
-                                            // redirect na předchozí stránku
+                                    $bool = $table->register( $register );
+                                    if( $bool === true ) {
+                                        $this->logged->nick = $register->nick;
+                                        $this->logged->admin = 0;
+                                             // redirect
+                                    } else if( $bool == 'nick'  ) {
+                                        $error = $this->msg->get( 'login.error.nickUsed', [ 'nick' => $data['nick'] ]);
+                                    } else if( $bool == 'email' ) {
+                                        $error = $this->msg->get( 'login.error.emailUsed', [ 'email' => $data['email'] ]);
                                     } else {
-                                        // chyba
+                                        $error = $this->msg->get( 'other.error.unknownError' );
                                     }
                             } else {
-                                // nestejná hesla
+                                $error = $this->msg->get( 'login.error.passwordsNotMatching');
                             }
                         }
                         else
                         {
-                            // není validní
+                            $error = $this->msg->get( 'form.error.invalidData');
                         }
                     }
                     return array( 
-                        'form'          => $form
+                        'form'          => $form,
+                        'error'         => isset( $error ) ? $error : null,
                     );
                 } else {
                     return $this->redirect()->toRoute('application/default', array(

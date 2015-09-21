@@ -30,10 +30,16 @@ class UserTable {
             'email' => $cat->email,
             'heslo' => $cat->heslo,
         );
-        if( !$this->tableGateway->insert( $data ) )
-            throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
-        
-        return true;
+        if( count( $this->tableGateway->select( [ 'nick' => $cat->nick ] ) ) > 0 ) {
+            return 'nick';
+        } else if( count( $this->tableGateway->select( [ 'email' => $cat->email ] ) ) > 0 ) {
+            return 'email';
+        } else {
+            if( !$this->tableGateway->insert( $data ) )
+                throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
+            return true;
+        } 
+        return false;
     }
     
     public function edit($row, $value, $nick ) {

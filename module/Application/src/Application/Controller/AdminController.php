@@ -14,32 +14,27 @@ class AdminController extends AbstractActionController
     private $msg;
     private $user;
     
-    public function __construct( )
+    public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
         $this->msg = new Msg( );
         $this->logged = new Container('user'); 
+        
+        if( !$this->logged->admin )
+        {
+            return $this->redirect()->toRoute('application/login' );
+        }
+        return parent::onDispatch($e);
     }
     
     public function indexAction()
     {
-        if( !$this->logged->admin )
-        {
-            //redirect pryč 
-        }
         //return $this->redirector()->toRoute('admin/kategorie/');
     }
 
     public function kategorieAction()
     {
-        if( !$this->logged->admin )
-        {
-            //redirect pryč 
-        }
-
         $table = $this->getCategoryTable();
         $form = new KategorieForm( null , $this->buildSelect( $table->fetchAll( ) ) );
-        //$reader = new \Zend\Config\Reader\Ini();
-        //$messages = $reader->fromFile( '../../../../../config/autoload/messages.ini');
 
         $request = $this->getRequest();
         if( $request->isPost( ) )
@@ -124,11 +119,6 @@ class AdminController extends AbstractActionController
 
     public function editcategoryAction()
     {
-        if( !$this->logged->admin )
-        {
-            //redirect pryč 
-        }
-
         $id = $this->params()->fromPost('id');
         $value = $this->params()->fromPost('value');
 
@@ -140,11 +130,6 @@ class AdminController extends AbstractActionController
 
     public function deletecategoryAction()
     {
-        if( !$this->logged->admin )
-        {
-            //redirect pryč 
-        }
-
         $id = $this->params()->fromPost('id');
 
         $table = $this->getCategoryTable();

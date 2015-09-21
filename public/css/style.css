@@ -140,6 +140,15 @@ footer {
     padding: 0 25%;
     text-align: center;
 }
+.error {
+    padding: 15px 20px 20px 150px;
+    width: calc(100% - 170px);
+    background-image: url(../img/error.png);
+    background-repeat: no-repeat;
+    background-position: 60px center;
+    background-size: 40px 40px;
+    background-color: rgba( 255, 204, 204, 0.5 );
+}
 /**
  * media
  */

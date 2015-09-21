@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+
 use Zend\Session\Container;
 use Application\Model\Msg;
 
@@ -12,18 +13,15 @@ class ProfilController extends AbstractActionController
     
     public $msg;
     
-    public function __construct( ) {
+    public function onDispatch(\Zend\Mvc\MvcEvent $e) {
         $this->msg = new Msg;
         
-        echo $this->msg->get( 'admin.error.inputInvalid', [ 'val' => 'kategorie' ] );
-        die();
         $this->logged = new Container('user');
         
         if( !isset( $this->logged->nick ) ) {
-            // nepřihlášený uživatel
-            var_dump( $this->logged->nick );
-            die( 'denied' );  
+            return $this->redirect()->toRoute('application/login' );
         }
+        return parent::onDispatch($e);
     }
 
     public function indexAction()
@@ -56,4 +54,3 @@ class ProfilController extends AbstractActionController
     }
 
 }
-
