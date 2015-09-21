@@ -6,15 +6,23 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Form\KategorieForm;
 use Application\Model\Kategorie;
+use Application\Model\Msg;
 use Zend\Session\Container;
 
 class AdminController extends AbstractActionController
 {
-
+    private $msg;
+    private $user;
+    
+    public function __construct( )
+    {
+        $this->msg = new Msg( );
+        $this->logged = new Container('user'); 
+    }
+    
     public function indexAction()
     {
-        $logged = new Container('user'); 
-        if( !$logged->admin )
+        if( !$this->logged->admin )
         {
             //redirect pryč 
         }
@@ -23,8 +31,7 @@ class AdminController extends AbstractActionController
 
     public function kategorieAction()
     {
-        $logged = new Container('user'); 
-        if( !$logged->admin )
+        if( !$this->logged->admin )
         {
             //redirect pryč 
         }
@@ -54,8 +61,7 @@ class AdminController extends AbstractActionController
             }
             else
             {
-                //$this->flashMessenger()->addMessage('You are now logged in.');
-                //$view->error = $messages["admin"]["error"]["category"]["inputInvalid"];
+                $error = $this->msg->get( "form.error.invalidInput" , array( "val" => "kategorie" ) );
             }
         }
 
@@ -64,6 +70,7 @@ class AdminController extends AbstractActionController
         return array( 
             'kategorie'     => $kategorie,
             'form'          => $form,
+            'error'         => isset( $error ) ? $error : null,
         );
     }
 
@@ -117,8 +124,7 @@ class AdminController extends AbstractActionController
 
     public function editcategoryAction()
     {
-        $logged = new Container('user'); 
-        if( !$logged->admin )
+        if( !$this->logged->admin )
         {
             //redirect pryč 
         }
@@ -134,8 +140,7 @@ class AdminController extends AbstractActionController
 
     public function deletecategoryAction()
     {
-        $logged = new Container('user'); 
-        if( !$logged->admin )
+        if( !$this->logged->admin )
         {
             //redirect pryč 
         }

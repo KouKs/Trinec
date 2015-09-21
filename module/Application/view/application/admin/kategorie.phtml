@@ -4,6 +4,11 @@
     <a class="animate" href="">schvalování</a>
     <a class="animate" href="">bannery</a>
 </nav>
+<?php if( isset( $this->error ) ) : ?>
+<div class="shadow area">
+    <?php echo $this->error; ?>
+</div>
+<?php endif; ?> 
 
 <div class="shadow area">
     <h3>Přidat kategorii</h3>
