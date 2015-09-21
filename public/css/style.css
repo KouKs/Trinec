@@ -58,7 +58,7 @@ nav a {
     color: #333;
 }
 
-nav a:hover {
+nav a:hover , nav a.selected {
     color: #009CFF;
     border-bottom: 2px solid #009CFF;
 }

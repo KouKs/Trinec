@@ -6,17 +6,29 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Form\KategorieForm;
 use Application\Model\Kategorie;
+use Zend\Session\Container;
 
 class AdminController extends AbstractActionController
 {
 
     public function indexAction()
     {
+        $logged = new Container('user'); 
+        if( !$logged->admin )
+        {
+            //redirect pryč 
+        }
         //return $this->redirector()->toRoute('admin/kategorie/');
     }
 
     public function kategorieAction()
     {
+        $logged = new Container('user'); 
+        if( !$logged->admin )
+        {
+            //redirect pryč 
+        }
+
         $table = $this->getCategoryTable();
         $form = new KategorieForm( null , $this->buildSelect( $table->fetchAll( ) ) );
         //$reader = new \Zend\Config\Reader\Ini();
@@ -105,6 +117,12 @@ class AdminController extends AbstractActionController
 
     public function editcategoryAction()
     {
+        $logged = new Container('user'); 
+        if( !$logged->admin )
+        {
+            //redirect pryč 
+        }
+
         $id = $this->params()->fromPost('id');
         $value = $this->params()->fromPost('value');
 
@@ -116,12 +134,28 @@ class AdminController extends AbstractActionController
 
     public function deletecategoryAction()
     {
+        $logged = new Container('user'); 
+        if( !$logged->admin )
+        {
+            //redirect pryč 
+        }
+
         $id = $this->params()->fromPost('id');
 
         $table = $this->getCategoryTable();
         $table->delete( $id );
 
         return $this->response;
+    }
+
+    public function schvalovaniAction()
+    {
+        return new ViewModel();
+    }
+
+    public function banneryAction()
+    {
+        return new ViewModel();
     }
 
 

@@ -1,5 +1,5 @@
 <nav class="shadow">
-    <a class="animate" href="">kategorie</a>
+    <a class="selected" href="">kategorie</a>
     <a class="animate" href="">log</a>
     <a class="animate" href="">schvalování</a>
     <a class="animate" href="">bannery</a>
@@ -76,7 +76,6 @@
                 $(button).fadeOut( 1000 );
             }
         );
-        return false;
     }
     
     function _delete( id ) {
@@ -85,10 +84,11 @@
         
         $.post( _URL + "admin/deletecategory" , { id: id },
             function(obj) {
-                $("#cat-" + id ).fadeOut( );
+                $("#cat-" + id ).fadeOut( "slow" , function( ) {
+                    $("#cat-" + id ).remove( );
+                });
             }
         );
-        return false;
     }
     
     function toggleButton( input )
