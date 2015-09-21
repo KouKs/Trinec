@@ -4,15 +4,21 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
+use Application\Model\Msg;
 
 class ProfilController extends AbstractActionController
 {
     private $logged;
     
+    public $msg;
+    
     public function __construct( ) {
-        var_dump( \Application\Module::getMessage( [ 'admin', 'error', 'inputInvalid' ], [ 'val' => 'kategorie' ] ) );
+        $this->msg = new Msg;
+        
+        echo $this->msg->get( 'admin.error.inputInvalid', [ 'val' => 'kategorie' ] );
         die();
         $this->logged = new Container('user');
+        
         if( !isset( $this->logged->nick ) ) {
             // nepřihlášený uživatel
             var_dump( $this->logged->nick );
