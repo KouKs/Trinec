@@ -1,15 +1,15 @@
 <div class="area shadow">
     <h3>Váš profil</h3>
         <table class="table-form">
-            <form method="get" onsubmit="return update( 'jmeno' )">
+            <form onsubmit="return update( 'jmeno' )">
                 <tr>
                     <td>Jméno</td>
-                    <td><input type="text" id="jmeno" value="<?= $this->user->jmeno ?>" placeholder="Zadejte Vaše jméno"></td>
+                    <td><input name="jmeno" type="text" id="jmeno" value="<?= $this->user->jmeno ?>" placeholder="Zadejte Vaše jméno"></td>
                     <td> <input type="submit" id="jmeno_btn" value="Změnit" class="btn btn-info hid"> </td>
                 </tr>
             </form>
             
-            <form method="get" onsubmit="return update( 'prijmeni' )">
+            <form onsubmit="return update( 'prijmeni' )">
                 <tr>
                     <td>Přijmení</td>
                     <td><input type="text" id="prijmeni" value="<?= $this->user->prijmeni ?>" placeholder="Zadejte Vaše přijmení"></td>
@@ -17,7 +17,7 @@
                 </tr>
             </form>            
             
-            <form method="get" onsubmit="return update( 'display' )">
+            <form onsubmit="return update( 'display' )">
                 <tr>
                     <td>Zobrazovat u příspěvků jméno a přijmení?</td>
                     <td><input type="checkbox" id="display"  <?php if( $this->user->display == 1 ) echo "checked"; ?>></td>
@@ -25,7 +25,7 @@
                 </tr>
             </form>
             
-            <form method="get" onsubmit="return update( 'email' )">
+            <form onsubmit="return update( 'email' )">
                 <tr>
                     <td>Email</td>
                     <td><input type="text" id="email" value="<?= $this->user->email ?>" placeholder="Zadejte Váš email"></td>
@@ -33,7 +33,7 @@
                 </tr>
             </form>
             
-            <form method="get" onsubmit="return update( 'telefon' )">
+            <form onsubmit="return update( 'telefon' )">
                 <tr>
                     <td>Telefonní číslo</td>
                     <td><input type="text" id="telefon" value="<?= $this->user->telefon ?>" placeholder="Zadejte Vaše telefonní číslo"></td>
@@ -41,7 +41,7 @@
                 </tr>
             </form>
             
-            <form method="get" onsubmit="return update( 'adresa' )">
+            <form onsubmit="return update( 'adresa' )">
                 <tr>
                     <td>Adresa</td>
                     <td><input type="text" id="adresa" value="<?= $this->user->adresa ?>" placeholder="Zadejte Vaši adresu"></td>
@@ -52,7 +52,7 @@
 </div>
 
 <div class="shadow area">
-    <h3>Zakopení místa pro bannery</h3>
+    <h3>Zakoupení místa pro bannery</h3>
 </div>
 
 <script type="text/javascript"> 
@@ -65,7 +65,7 @@
             value = 0;
         }
         
-        $.post("/trinec_cz/profil/edit?row=" + row + "&value=" + value, { },
+        $.post("/trinec_cz/profil/edit", { 'row': row, 'value': value },
             function(obj) {
                 $( "#" + row + "_btn" ).css("visibility", "hidden");
             }

@@ -32,8 +32,8 @@ class ProfilController extends AbstractActionController
     public function editAction()
     {
         $accepted = [ 'email', 'jmeno', 'prijmeni', 'telefon', 'adresa', 'zarizeni', 'display' ];
-        $row = $_GET['row'];
-        $value = str_replace( "'", "", trim( strip_tags( $_GET['value'] ) ) );
+        $row = $this->params()->fromPost('row');
+        $value = $this->params()->fromPost('value');
         
         if( in_array( $row, $accepted ) ) {
             $table = $this->getUserTable();
