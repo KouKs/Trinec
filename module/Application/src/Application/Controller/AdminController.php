@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Application\Form\KategorieForm;
 use Application\Model\Kategorie;
 use Application\Model\Msg;
+use Application\Model\Menu;
 use Zend\Session\Container;
 
 class AdminController extends AbstractActionController
@@ -28,7 +29,7 @@ class AdminController extends AbstractActionController
     
     public function indexAction()
     {
-        //return $this->redirector()->toRoute('admin/kategorie/');
+        return $this->redirect()->toRoute('application/admin');
     }
 
     public function kategorieAction()
@@ -66,6 +67,12 @@ class AdminController extends AbstractActionController
             'kategorie'     => $kategorie,
             'form'          => $form,
             'error'         => isset( $error ) ? $error : null,
+            'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
+                                        "kategorie", 
+                                        "log",
+                                        "schvalovani",
+                                        "bannery",
+                               ) , "kategorie" ),
         );
     }
 
@@ -140,12 +147,28 @@ class AdminController extends AbstractActionController
 
     public function schvalovaniAction()
     {
-        return new ViewModel();
+        return array( 
+            'error'         => isset( $error ) ? $error : null,
+            'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
+                                        "kategorie", 
+                                        "log",
+                                        "schvalovani",
+                                        "bannery",
+                               ) , "schvalovani" ),
+        );
     }
 
     public function banneryAction()
     {
-        return new ViewModel();
+        return array( 
+            'error'         => isset( $error ) ? $error : null,
+            'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
+                                        "kategorie", 
+                                        "log",
+                                        "schvalovani",
+                                        "bannery",
+                               ) , "bannery" ),
+        );
     }
 
 

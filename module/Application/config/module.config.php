@@ -68,6 +68,15 @@ return array(
                             ),
                         ),
                     ),
+                    'admin' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'admin',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Admin',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

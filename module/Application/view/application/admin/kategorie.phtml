@@ -1,10 +1,4 @@
-
-<nav class="shadow">
-    <a class="selected" href="#pridat">kategorie</a>
-    <a class="animate" href="<?php echo $this->url() . "admin/log"; ?>">log</a>
-    <a class="animate" href="<?php echo $this->url() . "admin/schvalovani"; ?>">schvalování</a>
-    <a class="animate" href="<?php echo $this->url() . "admin/bannery"; ?>">bannery</a>
-</nav>
+<?php echo $this->menu; ?>
 
 <?php if( isset( $this->error ) ) : ?>
 <div class="shadow area error">
