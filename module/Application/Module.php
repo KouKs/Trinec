@@ -83,6 +83,20 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new User());
                     return new TableGateway('uzivatele', $dbAdapter, null, $resultSetPrototype);
                 },
+                /**
+                 * banner
+                 */
+                'Application\Model\BannerTable' =>  function($sm) {
+                    $tableGateway = $sm->get('BannerTableGateway');
+                    $table = new BannerTable($tableGateway);
+                    return $table;
+                },
+                'BannerTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Banner());
+                    return new TableGateway('banner', $dbAdapter, null, $resultSetPrototype);
+                },
             ),
         );
     }

@@ -3,9 +3,9 @@
         <table class="table-form">
             <form onsubmit="return update( 'jmeno' )">
                 <tr>
-                    <td>Jméno</td>
-                    <td><input name="jmeno" type="text" id="jmeno" value="<?= $this->user->jmeno ?>" placeholder="Zadejte Vaše jméno"></td>
-                    <td> <input type="submit" id="jmeno_btn" value="Změnit" class="btn btn-info hid"> </td>
+                    <td width="36%">Jméno</td>
+                    <td width="36%"><input name="jmeno" type="text" id="jmeno" value="<?= $this->user->jmeno ?>" placeholder="Zadejte Vaše jméno"></td>
+                    <td width="16%"><button style="display: none;" type="submit" id="jmeno_btn" class="btn btn-info hid">Změnit</button></td>
                 </tr>
             </form>
             
@@ -13,7 +13,7 @@
                 <tr>
                     <td>Přijmení</td>
                     <td><input type="text" id="prijmeni" value="<?= $this->user->prijmeni ?>" placeholder="Zadejte Vaše přijmení"></td>
-                    <td> <input type="submit" id="prijmeni_btn" value="Změnit" class="btn btn-info hid"> </td>
+                    <td><button style="display: none;" type="submit" id="prijmeni_btn" class="btn btn-info hid">Změnit</button></td>
                 </tr>
             </form>            
             
@@ -21,7 +21,7 @@
                 <tr>
                     <td>Zobrazovat u příspěvků jméno a přijmení?</td>
                     <td><input type="checkbox" id="display"  <?php if( $this->user->display == 1 ) echo "checked"; ?>></td>
-                    <td><input type="submit" id="display_btn" value="Změnit" class="btn btn-info hid"> </td>
+                    <td><button style="display: none;" type="submit" id="display_btn" class="btn btn-info hid">Změnit</button></td>
                 </tr>
             </form>
             
@@ -29,7 +29,7 @@
                 <tr>
                     <td>Email</td>
                     <td><input type="text" id="email" value="<?= $this->user->email ?>" placeholder="Zadejte Váš email"></td>
-                    <td> <input type="submit" id="email_btn" value="Změnit" class="btn btn-info hid"> </td>
+                    <td><button style="display: none;" type="submit" id="email_btn" class="btn btn-info hid">Změnit</button></td>
                 </tr>
             </form>
             
@@ -37,7 +37,7 @@
                 <tr>
                     <td>Telefonní číslo</td>
                     <td><input type="text" id="telefon" value="<?= $this->user->telefon ?>" placeholder="Zadejte Vaše telefonní číslo"></td>
-                    <td> <input type="submit" id="telefon_btn" value="Změnit" class="btn btn-info hid"> </td>
+                    <td><button style="display: none;" type="submit" id="telefon_btn" class="btn btn-info hid">Změnit</button></td>
                 </tr>
             </form>
             
@@ -45,7 +45,7 @@
                 <tr>
                     <td>Adresa</td>
                     <td><input type="text" id="adresa" value="<?= $this->user->adresa ?>" placeholder="Zadejte Vaši adresu"></td>
-                    <td> <input type="submit" id="adresa_btn" value="Změnit" class="btn btn-info hid"> </td>
+                    <td><button style="display: none;" id="adresa_btn" class="btn btn-info hid">Změnit</button></td>
                 </tr>
             </form>
         </table>
@@ -56,7 +56,17 @@
 </div>
 
 <script type="text/javascript"> 
- 	function update( row ) {
+ 	function update( row /*form*/ ) { 
+            
+        //kdybysis tu dal objekt formu tak k tomu přistoupíš jednodušeni přes "name" pomocí form.name to samé i u tlačítka
+        /*
+         * onsubmit="update( this );"
+         * 
+         * var value = form.adresa.value; -- a value checkbuttonu je 1/0 vždycky
+         * var button = form.button;
+         * 
+         */
+        
         var value = $( '#' + row ).val();
         
         if( $('#' + row).is(':checked') && row === 'display' ) {
@@ -66,16 +76,25 @@
         }
         
         $.post( _URL + "profil/edit", { 'row': row, 'value': value },
-            function(obj) {
-                $( "#" + row + "_btn" ).css("visibility", "hidden");
+            function(obj) {                        
+                $( "#" + row + "_btn" ).removeClass('btn-info').addClass('btn-success');
+                $( "#" + row + "_btn" ).fadeOut( 1000 );
             }
         );
         return false;
     }
+    
     $(document).ready(function(){
-        $("input").on( "keypress change",
+        $("input").on( "keyup change",
             function() {
-                $( "#" + $(this).attr('id') + "_btn" ).css("visibility", "visible");
+                if( $(this).val() === $(this).prop("defaultValue") )
+                {
+                    $( "#" + $(this).attr('id') + "_btn" ).hide( );
+                }
+                else 
+                {
+                    $( "#" + $(this).attr('id') + "_btn" ).show( );
+                }
             }
         );
     });

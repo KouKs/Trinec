@@ -32,7 +32,7 @@ a {
           transition: all linear 0.2s;
 }
 .hid {
-    visibility: hidden;
+    
 }
 /**
  * Tabulka - fakt jsem to dělal sám
@@ -70,14 +70,14 @@ table {
     border-right: none;
 }
 
-.table-form td {
-   width: 46%; 
+.table-form td , .table-form th {
    padding: 5px 3%;
+   font-weight: normal;
 }
-.table-form td:first-child {
+.table-form td:first-child , .table-form th:first-child {
     text-align: right;
 }
-.table-form td:last-child {
+.table-form td:nth-child( 2 ) , .table-form:nth-child( 2 ) {
     text-align: left;
 }
 .table-form td.colspan {

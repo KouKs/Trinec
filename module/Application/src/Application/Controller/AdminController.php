@@ -21,7 +21,7 @@ class AdminController extends AbstractActionController
         
         if( !$this->logged->admin )
         {
-            return $this->redirect()->toRoute('application/login' );
+            //return $this->redirect()->toRoute('application/login' );
         }
         return parent::onDispatch($e);
     }
