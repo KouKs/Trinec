@@ -12,8 +12,8 @@
     
         <table class="table-form">
             <tr>
-                <td>Jméno</td>
-                <td><?php echo $this->formRow($form->get('nick')); ?></td>
+                <td width="46%">Jméno</td>
+                <td width="46%"><?php echo $this->formRow($form->get('nick')); ?></td>
             </tr>
             <tr>
                 <td>Heslo</td>
@@ -23,6 +23,6 @@
                 <td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
             </tr>
         </table>
-
+    //odkaz na ztracené heslo a na registraci
     <?php echo $this->form()->closeTag(); ?>
 </div>

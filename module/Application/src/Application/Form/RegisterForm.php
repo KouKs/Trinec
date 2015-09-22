@@ -38,7 +38,7 @@ class RegisterForm extends Form
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => 'Přihlásit',
+                'value' => 'Registrovat',
                 'class' => 'btn btn-info',
             ),
         ));

@@ -31,7 +31,10 @@ class AdminController extends AbstractActionController
     {
         return $this->redirect()->toRoute('application/admin');
     }
-
+    
+    /***************************************
+     * KATEGORIE
+     */
     public function kategorieAction()
     {
         $table = $this->getCategoryTable();
@@ -75,10 +78,6 @@ class AdminController extends AbstractActionController
                                ) , "kategorie" ),
         );
     }
-
-    /**
-     * kategorie
-     */
     private function getCategoryTable()
     {
         return $this->getServiceLocator()->get('Application\Model\KategorieTable');
@@ -144,7 +143,10 @@ class AdminController extends AbstractActionController
 
         return $this->response;
     }
-
+    
+    /****************************************
+     * SCHVALOVANI
+     */
     public function schvalovaniAction()
     {
         return array( 
@@ -157,7 +159,10 @@ class AdminController extends AbstractActionController
                                ) , "schvalovani" ),
         );
     }
-
+    
+    /****************************************
+     * BANNERY
+     */
     public function banneryAction()
     {
         return array( 
