@@ -71,9 +71,52 @@ return array(
                     'admin' => array(
                         'type'    => 'Literal',
                         'options' => array(
-                            'route'    => 'admin',
+                            'route'    => 'admin/',
                             'defaults' => array(
                                 'controller' => 'Application\Controller\Admin',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'kategorie' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => 'kategorie/',
+                                    'defaults' => array(
+                                        'controller' => 'Application\Controller\Admin',
+                                        'action' => 'kategorie',
+                                    ),
+                                ),
+                            ),
+                            'log' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => 'log/',
+                                    'defaults' => array(
+                                        'controller' => 'Application\Controller\Admin',
+                                        'action' => 'log',
+                                    ),
+                                ),
+                            ),
+                            'schvalovani' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => 'schvalovani/',
+                                    'defaults' => array(
+                                        'controller' => 'Application\Controller\Admin',
+                                        'action' => 'schvalovani',
+                                    ),
+                                ),
+                            ),
+                            'bannery' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => 'bannery/',
+                                    'defaults' => array(
+                                        'controller' => 'Application\Controller\Admin',
+                                        'action' => 'bannery',
+                                    ),
+                                ),
                             ),
                         ),
                     ),

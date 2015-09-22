@@ -1,7 +1,7 @@
 <?php
 
 /**
- *
+ * generace custom menu
  *
  * @author Pavel
  */
@@ -17,12 +17,12 @@ class Menu {
         
         foreach( $pages as $page )
         {
-            if( $page == $selected )
+            if( $page === $selected )
             {
                 $this->html .= "<a class='selected' href='#'>" . $page . "</a>";
                 continue;
             }
-            $this->html .= "<a class='animate leave' href='" . $path . "/" . $page . "'>" . $page . "</a>";
+            $this->html .= "<a class='animate leave' href='" . $path . $page . "/'>" . $page . "</a>";
         }
 
         $this->html .= "</nav>";
