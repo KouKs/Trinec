@@ -37,6 +37,17 @@ $temp = [
         'cas'         => "8",
         'aktivni'     => 1,
     ] ),
+    new Application\Model\Banner( [ 
+        'autor_id'    => 1,
+        'url'         => null,
+        'img'         => null,
+        'doba'        => 2,
+        'pozice'      => 4,
+        'vlozeno'     => 0,
+        'potvrzeno'   => 2,
+        'cas'         => "2|4|8|10|12|20|22",
+        'aktivni'     => 1,
+    ] ),
 ];
 
 $this->bannery = $temp;
@@ -48,9 +59,20 @@ if( !empty( $this->bannery ) )
         foreach( $casy as $index=>$cas )
         {
             if( $index === 0 ) 
-                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => count( $casy ) ];
+            {
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $beingSpaned = $cas;
+            }
+            elseif( $casy[ $index-1 ] != $cas-2 )
+            {
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $beingSpaned = $cas;
+            }
             else
+            {
                 $data[ $cas ][ $banner->pozice ] = "span";
+                $data[ $beingSpaned ][ $banner->pozice ]["span"]++;
+            }
         }
 
     } 
