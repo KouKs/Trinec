@@ -1,0 +1,124 @@
+<?php echo $this->menu; ?>
+
+<?php 
+$data = [];
+
+$temp = [
+    new Application\Model\Banner( [ 
+        'autor_id'    => 1,
+        'url'         => null,
+        'img'         => null,
+        'doba'        => 2,
+        'pozice'      => 1,
+        'vlozeno'     => 0,
+        'potvrzeno'   => 2,
+        'cas'         => "0|2|4",
+        'aktivni'     => 1,
+    ] ),
+    new Application\Model\Banner( [ 
+        'autor_id'    => 1,
+        'url'         => null,
+        'img'         => null,
+        'doba'        => 2,
+        'pozice'      => 2,
+        'vlozeno'     => 0,
+        'potvrzeno'   => 0,
+        'cas'         => "8|10|12",
+        'aktivni'     => 1,
+    ] ),
+    new Application\Model\Banner( [ 
+        'autor_id'    => 1,
+        'url'         => null,
+        'img'         => null,
+        'doba'        => 2,
+        'pozice'      => 3,
+        'vlozeno'     => 0,
+        'potvrzeno'   => 0,
+        'cas'         => "8",
+        'aktivni'     => 1,
+    ] ),
+    new Application\Model\Banner( [ 
+        'autor_id'    => 1,
+        'url'         => null,
+        'img'         => null,
+        'doba'        => 2,
+        'pozice'      => 4,
+        'vlozeno'     => 0,
+        'potvrzeno'   => 2,
+        'cas'         => "2|4|8|10|12|20|22",
+        'aktivni'     => 1,
+    ] ),
+];
+
+$this->bannery = $temp;
+if( !empty( $this->bannery ) ) 
+{
+    foreach( $this->bannery as $banner )
+    {
+        $casy = explode( "|" , $banner->cas );
+        foreach( $casy as $index=>$cas )
+        {
+            if( $index === 0 ) 
+            {
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $beingSpaned = $cas;
+            }
+            elseif( $casy[ $index-1 ] != $cas-2 )
+            {
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $beingSpaned = $cas;
+            }
+            else
+            {
+                $data[ $cas ][ $banner->pozice ] = "span";
+                $data[ $beingSpaned ][ $banner->pozice ]["span"]++;
+            }
+        }
+
+    } 
+}
+
+
+?>
+<div class="shadow area">
+    <h3>Zakoupení reklamního místa na stránkách</h3>
+    <table class="schedule table-hover">
+        <tr>
+            <th width="4%">Čas</th>
+            <th width="24%">Banner #1</th>
+            <th width="24%">Banner #2</th>
+            <th width="24%">Banner #3</th>
+            <th width="24%">Banner #4</th>
+        </tr>
+        <?php for( $time = 0 ; $time < 24 ; $time += 2) : ?>
+            <tr>
+                <td><?php echo $time . ":00"; ?></td>
+                <?php for( $pos = 1 ; $pos < 5 ; $pos++ ) : ?>
+                
+                    <?php $banner = @$data[ $time ][ $pos ]; ?>
+                
+                    <?php if( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner and !$banner["data"]->potvrzeno ) : ?>
+                        <!--
+                            Neschválený bannner
+                        -->                        
+                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-warning">Typekk (26. 3. 2016)</button></td>
+                    <?php elseif( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
+                        <!--
+                            Schválený banner
+                        --> 
+                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button class="btn btn-info">Typekk (26. 3. 2016)</button></td>
+                    <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
+                        <!--
+                            Vynechávka protože předchozí banner přesahuje
+                        -->
+                    <?php else : ?>
+                        <!--
+                            Volno
+                        --> 
+                        <td><button class="btn btn-success">Volné</button></td>
+                    <?php endif; ?>
+                <?php endfor; ?>
+            </tr>
+        <?php endfor; ?>
+    </table>
+</div>
