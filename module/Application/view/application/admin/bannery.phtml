@@ -1,5 +1,25 @@
 <?php echo $this->menu; ?>
 
+<?php 
+$data = [];
+
+if( !empty( $this->bannery ) ) 
+{
+    foreach( $this->bannery as $banner )
+    {
+        $casy = explode( "|" , $banner->cas );
+        foreach( $casy as $index=>$cas )
+        {
+            if( $index === 0 ) 
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => count( $casy ) ];
+            else
+                $data[ $cas ][ $banner->pozice ] = "span";
+        }
+
+    } 
+}
+?>
+
 <div class="shadow area">
     <h3>Přehled</h3>
     <table class="schedule table-hover">
@@ -14,7 +34,26 @@
             <tr>
                 <td><?php echo $time . ":00"; ?></td>
                 <?php for( $pos = 1 ; $pos < 5 ; $pos++ ) : ?>
-                    <td><button class="btn btn-danger">Typekk (26. 3. 2016)</button></td>
+                    <?php if( isset( $data[ $time ][ $pos ] ) and ( $banner = $data[ $time ][ $pos ] ) instanceof Application\Model\Banner and !$banner->potvrzeno ) : ?>
+                        <!--
+                            Neschválený bannner
+                        -->                        
+                        <td colspan="<?php echo $banner["span"]; ?>"><button class="btn btn-primary">Typekk (26. 3. 2016)</button></td>
+                    <?php elseif( isset( $banner ) and $banner instanceof Application\Model\Banner ) : ?>
+                        <!--
+                            Schválený banner
+                        --> 
+                        <td colspan="<?php echo $banner["span"]; ?>"><button class="btn btn-info">Typekk (26. 3. 2016)</button></td>
+                    <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
+                        <!--
+                            Vynechávka protože předchozí banner přesahuje
+                        -->
+                    <?php else : ?>
+                        <!--
+                            Volno
+                        --> 
+                        <td><button class="btn btn-success">Volné</button></td>
+                    <?php endif; ?>
                 <?php endfor; ?>
             </tr>
         <?php endfor; ?>
