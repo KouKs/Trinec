@@ -10,13 +10,12 @@
             <th width="24%">Banner #3</th>
             <th width="24%">Banner #4</th>
         </tr>
-        <?php for( $x = 0 ; $x < 24 ; $x += 2) : ?>
+        <?php for( $time = 0 ; $time < 24 ; $time += 2) : ?>
             <tr>
-                <td><?php echo $x . ":00"; ?></td>
-                <td><button class="btn btn-danger">Typekk (26. 3. 2016)</button></td>
-                <td><button class="btn btn-success">Volné</button></td>
-                <td><button class="btn btn-success">Volné</button></td>
-                <td><button class="btn btn-danger">Alena (18. 12. 2015)</button></td>
+                <td><?php echo $time . ":00"; ?></td>
+                <?php for( $pos = 1 ; $pos < 5 ; $pos++ ) : ?>
+                    <td><button class="btn btn-danger">Typekk (26. 3. 2016)</button></td>
+                <?php endfor; ?>
             </tr>
         <?php endfor; ?>
     </table>
