@@ -2,7 +2,9 @@
 
 <?php 
 $data = [];
-
+/*
+ * TESTOVACÍ DATA
+ */
 $temp = [
     new Application\Model\Banner( [ 
         'autor_id'    => 1,
@@ -51,6 +53,11 @@ $temp = [
 ];
 
 $this->bannery = $temp;
+
+/*
+ * KONEC TESTOVACÍCH DAT 
+ */
+
 if( !empty( $this->bannery ) ) 
 {
     foreach( $this->bannery as $banner )
@@ -97,25 +104,20 @@ if( !empty( $this->bannery ) )
                 
                     <?php $banner = @$data[ $time ][ $pos ]; ?>
                 
-                    <?php if( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner and !$banner["data"]->potvrzeno ) : ?>
+                    <?php if( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
                         <!--
-                            Neschválený bannner
+                            Zabraný prostor
                         -->                        
-                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-warning">Typekk (Čeká)</button></td>
-                    <?php elseif( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
-                        <!--
-                            Schválený banner
-                        --> 
-                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button class="btn btn-info">Typekk (26. 3. 2016)</button></td>
+                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-danger">Zabráno</button></td>
                     <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
                         <!--
-                            Vynechávka protože předchozí banner přesahuje
+                            Vynechávka protože banner přesahuje
                         -->
                     <?php else : ?>
                         <!--
                             Volno
                         --> 
-                        <td><button class="btn btn-success">Volné</button></td>
+                        <td><button id="<?php echo $pos . ":" . $time; ?>" class="btn btn-success">Volné</button></td>
                     <?php endif; ?>
                 <?php endfor; ?>
             </tr>
@@ -124,5 +126,41 @@ if( !empty( $this->bannery ) )
 </div>
 
 <div id="editace" class="shadow area hidden" >
-    <h3>Editovat banner</h3>
+    <h3>Objednat banner</h3>
 </div>
+
+<div id="editace" class="shadow area hidden" >
+    <h3>Zakoupené bannery</h3>
+</div>
+
+<script>
+var Times = new Array( );    
+    
+$(document).ready( function( ) {
+    $(".btn-success").click( function( event ) {
+        for( key in Times )
+        {
+            tempData = $(Times[ key ]).prop("id").split(":");
+            data = $(this).prop("id").split(":");
+            
+            if( data[0] !== tempData[ 0 ] )
+            {
+                Times = new Array( );
+                $(".btn-warning").html("Volné");
+                $(".btn-warning").removeClass("btn-warning").addClass("btn-success");
+                break;
+            }
+        }
+        Times.push( this );
+        $(this).removeClass("btn-success").addClass("btn-warning");
+        $(this).html("Vybráno");
+    });
+    
+    $(".btn-warning").click( function( event ) {
+        alert( "XD");
+        $(this).removeClass("btn-warning").addClass("btn-success");
+        $(this).html("Volné");
+    });
+});    
+</script>
+   

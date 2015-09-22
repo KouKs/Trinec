@@ -31,7 +31,7 @@ a {
        -o-transition: all linear 0.2s;
           transition: all linear 0.2s;
 }
-.hid {
+.hidden {
     display: none;
 }
 /**

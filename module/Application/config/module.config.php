@@ -48,6 +48,9 @@ return array(
                             ),
                         ),
                     ),
+                    /*
+                     * login a registrace
+                     */
                     'login' => array(
                         'type'    => 'Literal',
                         'options' => array(
@@ -68,6 +71,9 @@ return array(
                             ),
                         ),
                     ),
+                    /*
+                     * admin
+                     */
                     'admin' => array(
                         'type'    => 'Literal',
                         'options' => array(
@@ -114,6 +120,31 @@ return array(
                                     'route'    => 'bannery/',
                                     'defaults' => array(
                                         'controller' => 'Application\Controller\Admin',
+                                        'action' => 'bannery',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    /*
+                     * profil
+                     */
+                    'profil' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'profil/',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Profil',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'bannery' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => 'bannery/',
+                                    'defaults' => array(
+                                        'controller' => 'Application\Controller\Profil',
                                         'action' => 'bannery',
                                     ),
                                 ),
