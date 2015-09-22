@@ -24,7 +24,11 @@ class Banner implements InputFilterAwareInterface {
     public $aktivni;
     
     protected $inputFilter;
-
+    
+    public function __construct( $data ) {
+        $this->exchangeArray($data);
+    }
+    
     public function exchangeArray( $data )
     {
         $this->id           = @$data['id'];
