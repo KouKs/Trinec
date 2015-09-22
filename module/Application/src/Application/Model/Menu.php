@@ -15,14 +15,18 @@ class Menu {
     {
         $this->html = "<nav class='shadow'>";
         
-        foreach( $pages as $page )
+        foreach( $pages as $page => $name )
         {
+            if( is_numeric($page) ) {
+                $page = $name;
+            }
+            
             if( $page === $selected )
             {
-                $this->html .= "<a class='selected' href='#'>" . $page . "</a>";
+                $this->html .= "<a class='selected' href='#'>" . $name . "</a>";
                 continue;
             }
-            $this->html .= "<a class='animate leave' href='" . $path . $page . "/'>" . $page . "</a>";
+            $this->html .= "<a class='animate leave' href='" . $path . $page . "/'>" . $name . "</a>";
         }
 
         $this->html .= "</nav>";

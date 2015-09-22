@@ -47,13 +47,11 @@ $temp = [
         'pozice'      => 4,
         'vlozeno'     => 0,
         'potvrzeno'   => 2,
-        'cas'         => "2|4|8|10|12|14|20|22",
         'aktivni'     => 1,
     ] ),
 ];
 
 $this->bannery = $temp;
-
 /*
  * KONEC TESTOVACÍCH DAT 
  */
@@ -88,7 +86,8 @@ if( !empty( $this->bannery ) )
 
 ?>
 <div class="shadow area">
-    <h3>Přehled</h3>
+    <h3>Zakoupení reklamního místa na stránkách</h3>
+
     <table class="schedule table-hover">
         <tr>
             <th width="4%">Čas</th>
@@ -103,7 +102,7 @@ if( !empty( $this->bannery ) )
                 <?php for( $pos = 1 ; $pos < 5 ; $pos++ ) : ?>
                 
                     <?php $banner = @$data[ $time ][ $pos ]; ?>
-                
+               
                     <?php if( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
                         <!--
                             Zabraný prostor
@@ -163,4 +162,5 @@ $(document).ready( function( ) {
     });
 });    
 </script>
-   
+
+</div>

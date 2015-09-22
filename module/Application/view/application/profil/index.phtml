@@ -55,16 +55,6 @@
 
 <script type="text/javascript"> 
  	function update( row /*form*/ ) { 
-            
-        //kdybysis tu dal objekt formu tak k tomu přistoupíš jednodušeni přes "name" pomocí form.name to samé i u tlačítka
-        /*
-         * onsubmit="update( this );"
-         * 
-         * var value = form.adresa.value; -- a value checkbuttonu je 1/0 vždycky
-         * var button = form.button;
-         * 
-         */
-        
         var value = $( '#' + row ).val();
         
         if( $('#' + row).is(':checked') && row === 'display' ) {

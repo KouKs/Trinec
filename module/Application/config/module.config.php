@@ -71,9 +71,35 @@ return array(
                             ),
                         ),
                     ),
+<<<<<<< HEAD
                     /*
                      * admin
                      */
+=======
+                    'profil' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'profil/',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Profil',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route'    => '[:action]/',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+>>>>>>> origin/master
                     'admin' => array(
                         'type'    => 'Literal',
                         'options' => array(

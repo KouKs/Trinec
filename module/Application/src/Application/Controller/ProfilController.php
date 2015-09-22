@@ -3,10 +3,10 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Application\Model\Menu;
 use Zend\Session\Container;
 use Application\Model\Msg;
+use Application\Model\Menu;
 
 class ProfilController extends AbstractActionController
 {
@@ -31,15 +31,14 @@ class ProfilController extends AbstractActionController
     {
         $table = $this->getUserTable();
         foreach( $table->getUserByNick( $this->logged->nick ) as $u ) {
-            break;
+            return [ 
+                   'user' => $u,
+                   'menu'          => new Menu( $this->url()->fromRoute("application/profil") , array( 
+                            "index" => 'Profil', 
+                            "bannery" => 'Bannery',
+                    ) , "index" ),
+                   ];            
         }
-        return [ 
-            'user' => $u,
-            'menu' => new Menu( $this->url()->fromRoute("application/profil") , array( 
-                "index", 
-                "bannery",
-            ) , "index" ),
-        ];   
     }
 
     public function editAction()
@@ -62,12 +61,12 @@ class ProfilController extends AbstractActionController
 
     public function banneryAction()
     {
-        return [ 
+        return [
             'menu' => new Menu( $this->url()->fromRoute("application/profil") , array( 
-                "index", 
-                "bannery",
+                "index" => 'Profil', 
+                "bannery" => 'Bannery',
             ) , "bannery" ),
-        ];   
+        ];    
     }
 
 
