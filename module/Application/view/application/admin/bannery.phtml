@@ -45,7 +45,7 @@ $temp = [
         'pozice'      => 4,
         'vlozeno'     => 0,
         'potvrzeno'   => 2,
-        'cas'         => "2|4|8|10|12|20|22",
+        'cas'         => "2|4|8|10|12|14|20|22",
         'aktivni'     => 1,
     ] ),
 ];
@@ -101,7 +101,7 @@ if( !empty( $this->bannery ) )
                         <!--
                             Neschválený bannner
                         -->                        
-                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-warning">Typekk (26. 3. 2016)</button></td>
+                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-warning">Typekk (Čeká)</button></td>
                     <?php elseif( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
                         <!--
                             Schválený banner
@@ -121,4 +121,8 @@ if( !empty( $this->bannery ) )
             </tr>
         <?php endfor; ?>
     </table>
+</div>
+
+<div id="editace" class="shadow area hid" >
+    <h3>Editovat banner</h3>
 </div>

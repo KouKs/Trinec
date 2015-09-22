@@ -30,7 +30,7 @@ class KategorieForm extends Form
             'type' => 'Submit',
             'attributes' => array(
                 'value' => 'Přidat',
-                'class' => 'btn btn-info',
+                'class' => 'btn btn-info leave',
             ),
         ));
     }
