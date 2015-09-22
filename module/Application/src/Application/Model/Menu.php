@@ -26,7 +26,7 @@ class Menu {
                 $this->html .= "<a class='selected' href='#'>" . $name . "</a>";
                 continue;
             }
-            $this->html .= "<a class='animate leave' href='" . $path . $page . "/'>" . $name . "</a>";
+            $this->html .= "<a class='animate leave' href='" . $path . $page . "'>" . $name . "</a>";
         }
 
         $this->html .= "</nav>";

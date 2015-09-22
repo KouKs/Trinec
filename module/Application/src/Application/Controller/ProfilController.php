@@ -6,7 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\Menu;
 use Zend\Session\Container;
 use Application\Model\Msg;
-use Application\Model\Menu;
 
 class ProfilController extends AbstractActionController
 {
@@ -34,7 +33,7 @@ class ProfilController extends AbstractActionController
             return [ 
                    'user' => $u,
                    'menu'          => new Menu( $this->url()->fromRoute("application/profil") , array( 
-                            "index" => 'Profil', 
+                            "" => 'Profil', 
                             "bannery" => 'Bannery',
                     ) , "index" ),
                    ];            
@@ -63,7 +62,7 @@ class ProfilController extends AbstractActionController
     {
         return [
             'menu' => new Menu( $this->url()->fromRoute("application/profil") , array( 
-                "index" => 'Profil', 
+                "" => 'Profil', 
                 "bannery" => 'Bannery',
             ) , "bannery" ),
         ];    

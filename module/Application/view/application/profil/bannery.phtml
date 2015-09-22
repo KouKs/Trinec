@@ -124,11 +124,11 @@ if( !empty( $this->bannery ) )
     </table>
 </div>
 
-<div id="editace" class="shadow area hidden" >
+<div id="objednavka" class="shadow area hidden" >
     <h3>Objednat banner</h3>
 </div>
 
-<div id="editace" class="shadow area hidden" >
+<div class="shadow area hidden" >
     <h3>Zakoupené bannery</h3>
 </div>
 
@@ -136,30 +136,64 @@ if( !empty( $this->bannery ) )
 var Times = new Array( );    
     
 $(document).ready( function( ) {
-    $(".btn-success").click( function( event ) {
-        for( key in Times )
+    $(".btn").click( function( event ) {
+
+        if( $(this).hasClass("btn-success") )
         {
-            tempData = $(Times[ key ]).prop("id").split(":");
-            data = $(this).prop("id").split(":");
-            
-            if( data[0] !== tempData[ 0 ] )
+            /*
+             * vyčištění když klikne na jiný sloupec
+             */
+            for( key in Times )
             {
-                Times = new Array( );
-                $(".btn-warning").html("Volné");
-                $(".btn-warning").removeClass("btn-warning").addClass("btn-success");
-                break;
+                tempData = $(Times[ key ]).prop("id").split(":");
+                data = $(this).prop("id").split(":");
+
+                if( data[0] !== tempData[ 0 ] )
+                {
+                    Times = new Array( );
+                    $(".btn-warning").html("Volné");
+                    $(".btn-warning").removeClass("btn-warning").addClass("btn-success");
+                    break;
+                }
             }
+            /*
+             * zarazeni do objednávky
+             */
+            $(this).removeClass("btn-success").addClass("btn-warning");
+            $(this).html("Vybráno");
+            Times.push( this );
         }
-        Times.push( this );
-        $(this).removeClass("btn-success").addClass("btn-warning");
-        $(this).html("Vybráno");
+        else if( $(this).hasClass("btn-warning") )
+        {
+            /*
+             * vyrazeni
+             */
+            for( var key in Times )
+            {
+                if( Times[ key ] === this )
+                {
+                    Times.splice( key , 1 );
+                    $(this).removeClass("btn-warning").addClass("btn-success");
+                    $(this).html("Volné");
+                    break;
+                }
+            }
+            $(this).removeClass("btn-warning").addClass("btn-success");
+            $(this).html("Volné");
+        }
+        
+        if( Times.length > 0 )
+        {
+            $("#objednavka").fadeIn( );
+            //informace o objednávce
+        }
+        else
+        {
+            $("#objednavka").fadeOut( );
+            //informace o objednávce
+        }
     });
     
-    $(".btn-warning").click( function( event ) {
-        alert( "XD");
-        $(this).removeClass("btn-warning").addClass("btn-success");
-        $(this).html("Volné");
-    });
 });    
 </script>
 

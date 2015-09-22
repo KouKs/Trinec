@@ -71,11 +71,9 @@ return array(
                             ),
                         ),
                     ),
-<<<<<<< HEAD
                     /*
-                     * admin
+                     * profil
                      */
-=======
                     'profil' => array(
                         'type'    => 'Literal',
                         'options' => array(
@@ -99,7 +97,9 @@ return array(
                             ),
                         ),
                     ),
->>>>>>> origin/master
+                    /*
+                     * admin
+                     */
                     'admin' => array(
                         'type'    => 'Literal',
                         'options' => array(
@@ -110,68 +110,14 @@ return array(
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
-                            'kategorie' => array(
-                                'type'    => 'Literal',
+                            'default' => array(
+                                'type'    => 'Segment',
                                 'options' => array(
-                                    'route'    => 'kategorie/',
-                                    'defaults' => array(
-                                        'controller' => 'Application\Controller\Admin',
-                                        'action' => 'kategorie',
+                                    'route'    => '[:action]/',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                     ),
-                                ),
-                            ),
-                            'log' => array(
-                                'type'    => 'Literal',
-                                'options' => array(
-                                    'route'    => 'log/',
                                     'defaults' => array(
-                                        'controller' => 'Application\Controller\Admin',
-                                        'action' => 'log',
-                                    ),
-                                ),
-                            ),
-                            'schvalovani' => array(
-                                'type'    => 'Literal',
-                                'options' => array(
-                                    'route'    => 'schvalovani/',
-                                    'defaults' => array(
-                                        'controller' => 'Application\Controller\Admin',
-                                        'action' => 'schvalovani',
-                                    ),
-                                ),
-                            ),
-                            'bannery' => array(
-                                'type'    => 'Literal',
-                                'options' => array(
-                                    'route'    => 'bannery/',
-                                    'defaults' => array(
-                                        'controller' => 'Application\Controller\Admin',
-                                        'action' => 'bannery',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    /*
-                     * profil
-                     */
-                    'profil' => array(
-                        'type'    => 'Literal',
-                        'options' => array(
-                            'route'    => 'profil/',
-                            'defaults' => array(
-                                'controller' => 'Application\Controller\Profil',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'bannery' => array(
-                                'type'    => 'Literal',
-                                'options' => array(
-                                    'route'    => 'bannery/',
-                                    'defaults' => array(
-                                        'controller' => 'Application\Controller\Profil',
-                                        'action' => 'bannery',
                                     ),
                                 ),
                             ),
