@@ -32,7 +32,7 @@ a {
           transition: all linear 0.2s;
 }
 .hid {
-    
+    display: none;
 }
 /**
  * Tabulka - fakt jsem to dělal sám

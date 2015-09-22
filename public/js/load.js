@@ -22,8 +22,8 @@ $.fn.leavePage = function() {
   this.click(function(event){
 
     event.preventDefault();
-    linkLocation = this.href;
-    
+    linkLocation = this.href === undefined ? this.form.action : this.href;
+
     $("#banner-left").animate( { width: '0px'} );
     $("#banner-right").animate( { width: '0px'} );
     $("#container").fadeOut("slow",function(){
