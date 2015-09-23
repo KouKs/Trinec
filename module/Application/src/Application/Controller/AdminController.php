@@ -173,7 +173,7 @@ class AdminController extends AbstractActionController
         
         
         return array( 
-            'bannery'       => $this->buildBanners( $table->fetchAll() ),
+            'bannery'       => $this->buildBanners( $table->select( "zaplaceno=1" , "uzivatele" , "uzivatele.id = banner.autor_id" , array("nick" , "jmeno" , "prijmeni") ) ),
             'error'         => isset( $error ) ? $error : null,
             'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
                                         "kategorie", 
