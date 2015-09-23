@@ -101,12 +101,12 @@ if( !empty( $this->bannery ) )
                         <!--
                             Neschválený bannner
                         -->                        
-                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-warning">Typekk (Čeká)</button></td>
+                        <td rowspan="<?php echo $banner["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-warning">Typekk (Čeká)</button></td>
                     <?php elseif( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
                         <!--
                             Schválený banner
                         --> 
-                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button class="btn btn-info">Typekk (26. 3. 2016)</button></td>
+                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-info">Typekk (26. 3. 2016)</button></td> ech
                     <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
                         <!--
                             Vynechávka protože předchozí banner přesahuje
@@ -122,7 +122,33 @@ if( !empty( $this->bannery ) )
         <?php endfor; ?>
     </table>
 </div>
+<?php foreach( $data as $time=>$positions ) : ?>
+    <?php foreach( $positions as $pos=>$banner ) : ?>
+        <?php if( $banner === "span" ) continue; ?>
+        <div id="editace-<?php echo $pos . "-" . $time; ?>" class="editace shadow area hidden" >
+            <h3>Editovat banner</h3>
+            <?php echo $pos . "-" . $time; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endforeach; ?>
 
-<div id="editace" class="shadow area hidden" >
-    <h3>Editovat banner</h3>
-</div>
+
+<script>
+
+$(document).ready( function( ) {
+    $(".btn-warning,.btn-info").click( function( ) {
+        var Button = this;
+       
+        $(".editace").fadeOut( "fast" , function( ) {
+            $("#editace-" + Button.value).fadeIn( "fast" , function ( ) {
+                /*$("html,body").animate({
+                    scrollTop: $("#editace-"+ Button.value).offset().top - 200
+                }, 1000 );*/
+            });
+        });
+
+    });    
+});
+
+    
+</script>

@@ -47,6 +47,7 @@ $temp = [
         'pozice'      => 4,
         'vlozeno'     => 0,
         'potvrzeno'   => 2,
+        'cas'         => "2|4|8|10|12|14|20|22",
         'aktivni'     => 1,
     ] ),
 ];
@@ -116,12 +117,13 @@ if( !empty( $this->bannery ) )
                         <!--
                             Volno
                         --> 
-                        <td><button id="<?php echo $pos . ":" . $time; ?>" class="btn btn-success">Volné</button></td>
+                        <td><button id="<?php echo $pos . "-" . $time; ?>" class="btn btn-success">Volné</button></td>
                     <?php endif; ?>
                 <?php endfor; ?>
             </tr>
         <?php endfor; ?>
     </table>
+    //rozlišit označení banneru, který si zakopil člověk, co se na to dívá
 </div>
 
 <div id="objednavka" class="shadow area hidden" >
@@ -145,8 +147,8 @@ $(document).ready( function( ) {
              */
             for( key in Times )
             {
-                tempData = $(Times[ key ]).prop("id").split(":");
-                data = $(this).prop("id").split(":");
+                tempData = $(Times[ key ]).prop("id").split("-");
+                data = $(this).prop("id").split("-");
 
                 if( data[0] !== tempData[ 0 ] )
                 {
