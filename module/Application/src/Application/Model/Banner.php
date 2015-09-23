@@ -21,6 +21,7 @@ class Banner implements InputFilterAwareInterface {
     public $vlozeno;
     public $potvrzeno;
     public $cas;
+    public $zalaceno;
     public $aktivni;
     
     protected $inputFilter;
@@ -36,6 +37,7 @@ class Banner implements InputFilterAwareInterface {
         $this->vlozeno      = @$data['vlozeno'];
         $this->potvrzeno    = @$data['potvrzeno'];
         $this->cas          = @$data['cas'];
+        $this->zaplaceno    = @$data['zaplaceno'];
         $this->aktivni      = @$data['aktivni'];
     }
     

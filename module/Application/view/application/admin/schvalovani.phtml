@@ -15,7 +15,47 @@
 
 </div>  
 
-<div class="shadow area">
+<?php if( !empty( $this->bannery ) ) : ?>
+<div id="bannery" class="shadow area">
     <h3>Bannery</h3>
-
+        <table id="bannery-table" class="table-stripped table-hover">
+            <tr>
+                <th>Žadatel</th>
+                <th>Pozice</th>
+                <th>Čas</th>
+                <th>Url</th>
+                <th>Img</th>
+                <th>Akce</th>
+            </tr>
+            <?php foreach( $this->bannery as $banner ) : ?>
+                <tr>
+                    <td><?php echo !empty( $banner["data"]->jmeno ) ? $banner["data"]->jmeno . " " . $banner["data"]->prijmeni : $banner["data"]->nick; ?></td>
+                    <td><?php echo $banner["data"]->pozice; ?></td>
+                    <td><?php echo $banner["parsedTime"]; ?></td>
+                    <td><a href="<?php echo $banner["data"]->url; ?>"><?php echo $banner["data"]->url; ?></a></td>
+                    <td><?php echo $banner["data"]->img; ?></td>
+                    <td><button onclick="update( <?php echo $banner["data"]->id; ?> ,  1 , <?php echo time(); ?> , this )" class="btn btn-success">Schválit</button></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
 </div>  
+<?php endif; ?>
+
+<script>
+function update( id , aktivni , cas , button )
+{
+    $.post( _URL + "admin/editbanner" , { id: id, aktivni: aktivni , cas: cas },
+        function(obj) {
+            $(button).parent().parent().fadeOut( "slow" , function( ) {
+                $(this).remove()
+                if( $("#bannery-table tbody").children().length === 1 )
+                {
+                    $("#bannery").fadeOut( "slow" );
+                }
+            });
+        }
+    );
+}
+
+    
+</script>

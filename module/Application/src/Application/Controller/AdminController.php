@@ -73,7 +73,7 @@ class AdminController extends AbstractActionController
             'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
                                         "kategorie", 
                                         "log",
-                                        "schvalovani",
+                                        "schvalovani" => "schvalování",
                                         "bannery",
                                ) , "kategorie" ),
         );
@@ -149,12 +149,16 @@ class AdminController extends AbstractActionController
      */
     public function schvalovaniAction()
     {
+        $bannery = $this->getBannerTable( );
+        
+        
         return array( 
+            'bannery'       => $this->buildBanners( $bannery->select( "aktivni=0" , "uzivatele" , "uzivatele.id = banner.autor_id" , array("nick" , "jmeno" , "prijmeni") ) ),
             'error'         => isset( $error ) ? $error : null,
             'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
                                         "kategorie", 
                                         "log",
-                                        "schvalovani",
+                                        "schvalovani" => "schvalování",
                                         "bannery",
                                ) , "schvalovani" ),
         );
@@ -169,12 +173,12 @@ class AdminController extends AbstractActionController
         
         
         return array( 
-            'bannery'       => $this->buildBanners( $table ),
+            'bannery'       => $this->buildBanners( $table->fetchAll() ),
             'error'         => isset( $error ) ? $error : null,
             'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
                                         "kategorie", 
                                         "log",
-                                        "schvalovani",
+                                        "schvalovani" => "schvalování",
                                         "bannery",
                                ) , "bannery" ),
         );
@@ -192,10 +196,10 @@ class AdminController extends AbstractActionController
         return $this->response;
     }
     
-    private function buildBanners( $table )
+    private function buildBanners( $result )
     {
         $ret = [];
-        foreach( $table->fetchAll( ) as $index=>$row )
+        foreach( $result as $index=>$row )
         {
             $ret[ $index ]["data"] = $row;
             $ret[ $index ]["parsedTime"] = $this->parseTime( $row->cas );

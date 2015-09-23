@@ -42,6 +42,7 @@ class BannerTable {
             'vlozeno'     => $ban->vlozeno,
             'potvrzeno'   => $ban->potvrzeno,
             'cas'         => $ban->cas,
+            'zaplaceno'   => $ban->zaplaceno,
             'aktivni'     => $ban->aktivni,
         ];
         if( !$this->tableGateway->insert( $data ) )
@@ -61,7 +62,18 @@ class BannerTable {
             throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
     }
     
-    public function getUserById( $id )
+    public function select( $where = null , $join = null , $cond = null , $cols = null , $order = "id ASC" )
     {
+        $select = $this->tableGateway->getSql()
+                ->select()
+                ->where( $where )
+                ->order( $order )
+                ->join( $join , $cond , $cols );
+        $result = $this->tableGateway->getSql()->prepareStatementForSqlObject( $select )->execute();
+        
+        $rs = new ResultSet();
+        $rs->initialize( $result );
+        
+        return $rs;
     }
 }
