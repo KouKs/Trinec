@@ -221,11 +221,11 @@ class AdminController extends AbstractActionController
             }
             elseif( $casy[ $index-1 ] != $cas-2 )
             {
-                $ret .= $casy[ $index-1 ] . ":00, " . $cas . ":00 - ";
+                $ret .= ( $casy[ $index-1 ] + 2 ) . ":00, " .  $cas . ":00 - ";
                 $beingSpaned = $cas;
             }
         }
-        $ret .= $cas . ":00";
+        $ret .= ( $cas + 2 ) . ":00";
         return $ret;
     }
 

@@ -56,12 +56,12 @@ if( !empty( $this->bannery ) )
                         <!--
                             Neschválený bannner
                         -->                        
-                        <td rowspan="<?php echo $banner["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-warning">Typekk (Čeká)</button></td>
+                        <td rowspan="<?php echo $banner["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-warning"><?php echo $banner["data"]->nick; ?> (Čeká)</button></td>
                     <?php elseif( isset( $banner["data"] ) ) : ?>
                         <!--
                             Schválený banner
                         --> 
-                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-info">Typekk (26. 3. 2016)</button></td>
+                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-info"><?php echo $banner["data"]->nick; ?> (<?php echo date("j. n. Y", $banner["data"]->potvrzeno ); ?>)</button></td>
                     <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
                         <!--
                             Vynechávka protože předchozí banner přesahuje
@@ -98,8 +98,8 @@ if( !empty( $this->bannery ) )
                     <td><?php echo $banner["data"]->img; ?></td>
                 </tr>
                 <tr>
-                    <td>Doba</td>
-                    <td><?php echo $banner["data"]->doba; ?> (týdny)</td>
+                    <td>Doba v týdnech</td>
+                    <td><?php echo $banner["data"]->doba; ?></td>
                 </tr>
                 <tr>
                     <td>Čas</td>
