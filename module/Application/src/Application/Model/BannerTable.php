@@ -35,15 +35,10 @@ class BannerTable {
     public function add( Banner $ban ) {
         $data = [
             'autor_id'    => $ban->autor_id,
-            'url'         => $ban->url,
-            'img'         => $ban->img,
             'doba'        => $ban->doba,
             'pozice'      => $ban->pozice,
             'vlozeno'     => $ban->vlozeno,
-            'potvrzeno'   => $ban->potvrzeno,
             'cas'         => $ban->cas,
-            'zaplaceno'   => $ban->zaplaceno,
-            'aktivni'     => $ban->aktivni,
         ];
         if( !$this->tableGateway->insert( $data ) )
             throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
@@ -67,8 +62,10 @@ class BannerTable {
         $select = $this->tableGateway->getSql()
                 ->select()
                 ->where( $where )
-                ->order( $order )
-                ->join( $join , $cond , $cols );
+                ->order( $order );
+        
+        if( $join != null ) $select->join( $join , $cond , $cols );
+        
         $result = $this->tableGateway->getSql()->prepareStatementForSqlObject( $select )->execute();
         
         $rs = new ResultSet();

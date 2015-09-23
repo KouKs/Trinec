@@ -1,58 +1,7 @@
 <?php echo $this->menu; ?>
 
-<?php 
+<?php
 $data = [];
-/*
- * TESTOVACÍ DATA
- */
-$temp = [
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 1,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 2,
-        'cas'         => "0|2|4",
-        'aktivni'     => 1,
-    ] ),
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 2,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 0,
-        'cas'         => "8|10|12",
-        'aktivni'     => 1,
-    ] ),
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 3,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 0,
-        'cas'         => "8",
-        'aktivni'     => 1,
-    ] ),
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 4,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 2,
-        'cas'         => "2|4|8|10|12|14|20|22",
-        'aktivni'     => 1,
-    ] ),
-];
-
-$this->bannery = $temp;
 /*
  * KONEC TESTOVACÍCH DAT 
  */
@@ -61,17 +10,20 @@ if( !empty( $this->bannery ) )
 {
     foreach( $this->bannery as $banner )
     {
+        $parsedTime = $banner["parsedTime"];
+        $banner = $banner["data"];
+
         $casy = explode( "|" , $banner->cas );
         foreach( $casy as $index=>$cas )
         {
             if( $index === 0 ) 
             {
-                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 , "parsedTime" => $parsedTime ];
                 $beingSpaned = $cas;
             }
             elseif( $casy[ $index-1 ] != $cas-2 )
             {
-                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 , "parsedTime" => $parsedTime ];
                 $beingSpaned = $cas;
             }
             else
@@ -83,9 +35,8 @@ if( !empty( $this->bannery ) )
 
     } 
 }
-
-
 ?>
+
 <div class="shadow area">
     <h3>Zakoupení reklamního místa na stránkách</h3>
 
@@ -97,21 +48,26 @@ if( !empty( $this->bannery ) )
             <th width="24%">Banner #3</th>
             <th width="24%">Banner #4</th>
         </tr>
-        <?php for( $time = 0 ; $time < 24 ; $time += 2) : ?>
+<?php for( $time = 0 ; $time < 24 ; $time += 2) : ?>
             <tr>
                 <td><?php echo $time . ":00"; ?></td>
                 <?php for( $pos = 1 ; $pos < 5 ; $pos++ ) : ?>
                 
                     <?php $banner = @$data[ $time ][ $pos ]; ?>
-               
-                    <?php if( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
+                    
+                    <?php if( isset( $banner["data"] ) && $this->user == $banner["data"]->nick ) : ?>
                         <!--
-                            Zabraný prostor
-                        -->                        
-                        <td rowspan="<?php echo $banner["span"]; ?>"><button class="btn btn-danger">Zabráno</button></td>
+                            Vlastníkem je uživatel
+                        --> 
+                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button class="btn btn-info">Váš banner</button></td>
+                    <?php elseif( isset( $banner["data"] ) ) : ?>
+                        <!--
+                            Schválený banner
+                        --> 
+                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button class="btn btn-danger">Obsazeno</button></td>
                     <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
                         <!--
-                            Vynechávka protože banner přesahuje
+                            Vynechávka protože předchozí banner přesahuje
                         -->
                     <?php else : ?>
                         <!--
@@ -123,11 +79,38 @@ if( !empty( $this->bannery ) )
             </tr>
         <?php endfor; ?>
     </table>
-    //rozlišit označení banneru, který si zakopil člověk, co se na to dívá
 </div>
 
 <div id="objednavka" class="shadow area hidden" >
     <h3>Objednat banner</h3>
+    <form action="http://localhost/trinec_cz/profil/pay" method="post">
+        <table class="table-form">
+            <tr>
+                <td> Číslo banneru
+                <td> <strong id="banner_number"></strong>
+            <tr>
+                <td> Čas
+                <td> <strong id="banner_time"></strong>
+            <tr>
+                <td> Celkem hodin za den
+                <td> <strong id="banner_sum"></strong>
+            <tr>
+                <td> Týdnů
+                <td>
+                    <select name="form_weeks" id="weeks">
+                        <?php for( $x = 1 ; $x <= 5 ; $x++ ) : ?>
+                            <option value="<?= $x ?>"> <?= $x ?> </option>
+                        <?php endfor; ?>
+                    </select>
+            <tr>
+                <td>Cena
+                <td><strong id="banner_price"></strong>
+            <tr>
+                    <input type="hidden" name="banner" id="form_banner">
+                    <input type="hidden" name="time" id="form_time">
+                    <td> <td> <input type="submit" class="btn btn-info">
+        </table>
+    </form>
 </div>
 
 <div class="shadow area hidden" >
@@ -135,9 +118,16 @@ if( !empty( $this->bannery ) )
 </div>
 
 <script>
-var Times = new Array( );    
-    
+var Times = new Array( );
+
 $(document).ready( function( ) {
+    
+    $("#weeks").change(
+        function() {
+            $( '#banner_price' ).text( Times.length * 2 * 90 * parseInt( $( '#weeks' ).val() ) + " Kč" );
+        }
+    );
+    
     $(".btn").click( function( event ) {
 
         if( $(this).hasClass("btn-success") )
@@ -180,17 +170,59 @@ $(document).ready( function( ) {
                     break;
                 }
             }
-            $(this).removeClass("btn-warning").addClass("btn-success");
-            $(this).html("Volné");
+
+
         }
         
         if( Times.length > 0 )
         {
+            $( '#banner_time' ).text( '' );
+            $( '#banner_sum' ).text( Times.length * 2 + " hodin" );
+            $( '#banner_price' ).text( Times.length * 2 * 90 * parseInt( $( '#weeks' ).val() ) + " Kč" );
+            
+            var ids = [];
+            $.each( Times, function( id, value ) {
+                var split = $(value).attr('id').split('-');
+                if( split[1].length === 1 ) {
+                    split[1] = "0" + split[1];
+                }
+                ids.push( split[0] + "-" + split[1] );
+                
+            });
+            ids.sort();
+            var i = 1;
+            $( '#form_time' ).val( '' );
+            $.each( ids, function( id, value ) {
+                var time = value.split('-');
+                $( '#form_time' ).val( $( '#form_time' ).val(  ) + time[1] + "|" );
+                if( id === 0 ) {
+                    $( '#banner_number' ).text( time[0] );
+                    $( '#form_banner' ).val( time[0] );
+                }
+                var text = $( '#banner_time' ).text();
+                var to = parseInt(time[1]) + 2;
+                if( to < 10 ) {
+                    to = "0" + to;
+                }
+                to = to + ":00 ";
+                    
+                var append = time[1] + ":00 - " + to;
+                
+                if( text.slice(-6, -1) === time[1] + ":00" ) {
+
+                    $( '#banner_time' ).text( text.slice( 0, text.length - 9 ) + " - " + to );
+                } else {
+                    $( '#banner_time' ).append( append );
+                }
+            });
+            
+            
             $("#objednavka").fadeIn( );
             //informace o objednávce
             /*
              * array Times
              */
+            
         }
         else
         {
