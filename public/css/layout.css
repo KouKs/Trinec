@@ -42,6 +42,9 @@ table {
     padding: 0;
     margin: 0;
 }
+
+table tbody tr td , table tbody tr { line-height: 30px; }
+
 .table-stripped tr:nth-child(even) {
     background-color: #fff;
 }

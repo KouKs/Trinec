@@ -3,69 +3,25 @@
 <?php 
 $data = [];
 
-$temp = [
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 1,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 2,
-        'cas'         => "0|2|4",
-        'aktivni'     => 1,
-    ] ),
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 2,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 0,
-        'cas'         => "8|10|12",
-        'aktivni'     => 1,
-    ] ),
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 3,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 0,
-        'cas'         => "8",
-        'aktivni'     => 1,
-    ] ),
-    new Application\Model\Banner( [ 
-        'autor_id'    => 1,
-        'url'         => null,
-        'img'         => null,
-        'doba'        => 2,
-        'pozice'      => 4,
-        'vlozeno'     => 0,
-        'potvrzeno'   => 2,
-        'cas'         => "2|4|8|10|12|14|20|22",
-        'aktivni'     => 1,
-    ] ),
-];
-
-$this->bannery = $temp;
+$this->bannery;
 if( !empty( $this->bannery ) ) 
 {
     foreach( $this->bannery as $banner )
     {
+        $parsedTime = $banner["parsedTime"];
+        $banner = $banner["data"];
+
         $casy = explode( "|" , $banner->cas );
         foreach( $casy as $index=>$cas )
         {
             if( $index === 0 ) 
             {
-                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 , "parsedTime" => $parsedTime ];
                 $beingSpaned = $cas;
             }
             elseif( $casy[ $index-1 ] != $cas-2 )
             {
-                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 ];
+                $data[ $cas ][ $banner->pozice ] = [ "data" => $banner , "span" => 1 , "parsedTime" => $parsedTime ];
                 $beingSpaned = $cas;
             }
             else
@@ -77,7 +33,6 @@ if( !empty( $this->bannery ) )
 
     } 
 }
-
 
 ?>
 <div class="shadow area">
@@ -97,16 +52,16 @@ if( !empty( $this->bannery ) )
                 
                     <?php $banner = @$data[ $time ][ $pos ]; ?>
                 
-                    <?php if( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner and !$banner["data"]->potvrzeno ) : ?>
+                    <?php if( isset( $banner["data"] ) and !$banner["data"]->aktivni ) : ?>
                         <!--
                             Neschválený bannner
                         -->                        
                         <td rowspan="<?php echo $banner["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-warning">Typekk (Čeká)</button></td>
-                    <?php elseif( isset( $banner["data"] ) and $banner["data"] instanceof Application\Model\Banner ) : ?>
+                    <?php elseif( isset( $banner["data"] ) ) : ?>
                         <!--
                             Schválený banner
                         --> 
-                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-info">Typekk (26. 3. 2016)</button></td> ech
+                        <td rowspan="<?php echo $data[ $time ][ $pos ]["span"]; ?>"><button value="<?php echo $pos . "-" . $time; ?>" class="btn btn-info">Typekk (26. 3. 2016)</button></td>
                     <?php elseif( isset( $banner ) and $banner === "span" ) : ?>
                         <!--
                             Vynechávka protože předchozí banner přesahuje
@@ -125,30 +80,94 @@ if( !empty( $this->bannery ) )
 <?php foreach( $data as $time=>$positions ) : ?>
     <?php foreach( $positions as $pos=>$banner ) : ?>
         <?php if( $banner === "span" ) continue; ?>
-        <div id="editace-<?php echo $pos . "-" . $time; ?>" class="editace shadow area hidden" >
-            <h3>Editovat banner</h3>
-            <?php echo $pos . "-" . $time; ?>
+        <div style="margin-bottom: 20px" id="editace-<?php echo $pos . "-" . $time; ?>" class="editace shadow area hidden" >
+            <h3>Informace o banneru</h3>
+            <table class="table-form">
+                <tr>
+                    <td width="46%">Jméno objednavatele</td>
+                    <td width="46%">
+                        <?php echo !empty( $banner["data"]->jmeno ) ? $banner["data"]->jmeno . " " . $banner["data"]->prijmeni : $banner["data"]->nick; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Odkaz na adresu</td>
+                    <td><a href="<?php echo $banner["data"]->url; ?>"><?php echo $banner["data"]->url; ?></a></td>
+                </tr>
+                <tr>
+                    <td>Obrázek</td>
+                    <td><?php echo $banner["data"]->img; ?></td>
+                </tr>
+                <tr>
+                    <td>Doba</td>
+                    <td><?php echo $banner["data"]->doba; ?> (týdny)</td>
+                </tr>
+                <tr>
+                    <td>Čas</td>
+                    <td><?php echo $banner["parsedTime"]; ?></td>
+                </tr>
+                <tr>
+                    <td>Pozice</td>
+                    <td><?php echo $banner["data"]->pozice; ?></td>
+                </tr>
+                <tr>
+                    <td>Přidáno</td>
+                    <td><?php echo date( "j. n. Y" ,$banner["data"]->vlozeno ); ?></td>
+                </tr>
+                <tr>
+                    <td>Stav</td>
+                    <td>
+                        <?php if( $banner["data"]->aktivni ) : ?>
+                            Schváleno <?php echo date( "j. n. Y" , $banner["data"]->potvrzeno ); ?>
+                        <?php else : ?>
+                            Čeká na schválení
+                        <?php endif; ?>   
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;" colspan="2">
+                        <?php if( $banner["data"]->aktivni ) : ?>
+                            <button onclick="update( <?php echo $banner["data"]->id; ?> , 0 , 0 )" class="btn btn-danger">Deaktivovat</button>
+                        <?php else : ?>
+                            <button onclick="update( <?php echo $banner["data"]->id; ?> ,  1 , <?php echo time(); ?> )" class="btn btn-success">Schválit</button>
+                        <?php endif; ?>                    
+                    </td>
+                </tr>
+            </table>
         </div>
     <?php endforeach; ?>
 <?php endforeach; ?>
 
-
 <script>
 
 $(document).ready( function( ) {
+    
     $(".btn-warning,.btn-info").click( function( ) {
         var Button = this;
-       
-        $(".editace").fadeOut( "fast" , function( ) {
-            $("#editace-" + Button.value).fadeIn( "fast" , function ( ) {
-                /*$("html,body").animate({
-                    scrollTop: $("#editace-"+ Button.value).offset().top - 200
-                }, 1000 );*/
-            });
+        $(".editace").each( function( ) {
+            $(this).fadeOut( 500 );
         });
-
-    });    
+        window.setTimeout( function( ) {
+            $("#editace-" + Button.value).fadeIn( 500 , function ( ) {
+                $("html,body").animate({
+                    scrollTop: $("#editace-"+ Button.value).offset().top - 200
+                }, 1000 );
+            });
+        } , 500 );
+    });
+    
+    $(window).on( "mousewheel" , function( ) {
+        $("html,body").stop();
+    })
 });
+
+function update( id , aktivni , cas )
+{
+    $.post( _URL + "admin/editbanner" , { id: id, aktivni: aktivni , cas: cas },
+        function(obj) {
+            location.href = _URL + "admin/bannery";
+        }
+    );
+}
 
     
 </script>

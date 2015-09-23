@@ -8,6 +8,7 @@
 namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\ResultSet;
 
 class BannerTable {
     
@@ -20,8 +21,15 @@ class BannerTable {
     
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select();
-        return $resultSet;
+        $select = $this->tableGateway->getSql()
+                ->select()
+                ->join("uzivatele" , "uzivatele.id = banner.autor_id" , array("nick","jmeno","prijmeni"));
+        $result = $this->tableGateway->getSql()->prepareStatementForSqlObject( $select )->execute();
+        
+        $rs = new ResultSet();
+        $rs->initialize( $result );
+        
+        return $rs;
     }
     
     public function add( Banner $ban ) {
@@ -51,5 +59,9 @@ class BannerTable {
     {
         if( !$this->tableGateway->delete( [ 'id' => $id ] ) )
             throw new \Exception( "Nastala chyba! Konktaktujte, prosím, správce webových stránek." );
+    }
+    
+    public function getUserById( $id )
+    {
     }
 }

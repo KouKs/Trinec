@@ -163,9 +163,13 @@ class AdminController extends AbstractActionController
     /****************************************
      * BANNERY
      */
-    public function banneryAction()
+    public function banneryAction( )
     {
+        $table = $this->getBannerTable( );
+        
+        
         return array( 
+            'bannery'       => $this->buildBanners( $table ),
             'error'         => isset( $error ) ? $error : null,
             'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
                                         "kategorie", 
@@ -174,6 +178,55 @@ class AdminController extends AbstractActionController
                                         "bannery",
                                ) , "bannery" ),
         );
+    }
+    
+    public function editbannerAction( )
+    {
+        $id = $this->params()->fromPost('id');
+        $aktivni = $this->params()->fromPost('aktivni');
+        $cas = $this->params()->fromPost('cas');
+
+        $table = $this->getBannerTable();
+        $table->edit( $id , array( "potvrzeno" => $cas , "aktivni" => $aktivni ) );
+
+        return $this->response;
+    }
+    
+    private function buildBanners( $table )
+    {
+        $ret = [];
+        foreach( $table->fetchAll( ) as $index=>$row )
+        {
+            $ret[ $index ]["data"] = $row;
+            $ret[ $index ]["parsedTime"] = $this->parseTime( $row->cas );
+        }
+        return $ret;
+    }
+    
+    private function getBannerTable( )
+    {
+        return $this->getServiceLocator()->get('Application\Model\BannerTable');
+    }
+    
+    private function parseTime( $data )
+    {
+        $ret = "";
+        $casy = explode( "|" , $data );
+        foreach( $casy as $index=>$cas )
+        {
+            if( $index === 0 ) 
+            {
+                $ret .= $cas . ":00 - ";
+                $beingSpaned = $cas;
+            }
+            elseif( $casy[ $index-1 ] != $cas-2 )
+            {
+                $ret .= $casy[ $index-1 ] . ":00, " . $cas . ":00 - ";
+                $beingSpaned = $cas;
+            }
+        }
+        $ret .= $cas . ":00";
+        return $ret;
     }
 
 
