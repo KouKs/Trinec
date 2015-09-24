@@ -6,20 +6,19 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Application\Form\KategorieForm;
 use Application\Model\Kategorie;
 use Application\Model\Msg;
-use Application\Model\Menu;
 use Zend\Session\Container;
 
 class AdminController extends AbstractActionController
 {
-    private $msg;
+    public $msg;
     private $user;
     
     public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
         $this->msg = new Msg( );
-        $this->logged = new Container('user'); 
+        $this->user = new Container('user'); 
         
-        if( !$this->logged->admin )
+        if( !$this->user->admin )
         {
             return $this->redirect()->toRoute('application/login' );
         }
@@ -62,7 +61,7 @@ class AdminController extends AbstractActionController
             }
             else
             {
-                $error = $this->msg->get( "form.error.invalidInput" , array( "val" => "kategorie" ) );
+                //$error = $this->msg->get( "form.error.invalidInput" , array( "val" => "kategorie" ) );
             }
         }
 

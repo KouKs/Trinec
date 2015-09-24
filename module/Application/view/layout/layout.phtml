@@ -30,7 +30,7 @@
         <div id="page">
             <header class="shadow width">
                 <div id="header-top">
-                    <a href="/" class="leave" ><h1 style="float: left">Třinec.cz</h1></a>
+                    <a href="<?php echo $this->basePath(""); ?>" class="leave" ><h1 style="float: left">Třinec.cz</h1></a>
                     <input placeholder="Hledat" id="search" type="text">
                 </div>
                 <nav>
@@ -40,7 +40,7 @@
                     <a class="animate leave" href="<?php echo $this->basePath("firmy"); ?>">firmy</a>
                     <a class="animate leave" href="<?php echo $this->basePath("diskuze"); ?>">diskuze</a>
                     <a class="animate leave" href="<?php echo $this->basePath("clanky"); ?>">články</a>
-                    <?php if( $this->user->boolLogged ) : ?>
+                    <?php if( @$this->user->boolLogged ) : ?>
                         <a id="login" class="animate" href="<?php echo $this->basePath("profil"); ?>">profil</a>
                     <?php else : ?>
                         <a id="login" class="animate" href="<?php echo $this->basePath("login"); ?>">login</a>

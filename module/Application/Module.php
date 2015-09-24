@@ -36,7 +36,6 @@ class Module
             'use_cookies' => true,
             'cookie_httponly' => true,
         ));
-        
         $eventManager->attach('dispatch', array($this, 'loadConfiguration' ));
     }
 
@@ -118,5 +117,21 @@ class Module
     {           
         $controller = $e->getTarget();
         $controller->layout()->user = new Container('user');
+        /*
+         * $config = parse_ini_file(__DIR__ . '/../../config/autoload/messages.ini' , true);
+        $controller->msg = "test";
+        $controller->msg = function( $route , $params = [] ) use( $config ){
+            $route = explode( ".", $route );
+        
+            $return = $config[ $route[0] ][ $route[1] ][ $route[2] ];
+            foreach ( $params as $search => $value ) {
+                $return = str_replace( "%".$search."%", $value, $return);
+            }
+
+            return $return;
+        };
+         */
     }
+    
+    
 }

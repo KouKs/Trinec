@@ -28,7 +28,7 @@ class Menu extends AbstractHelper
                 $this->html .= "<a class='selected' href='#'>" . $name . "</a>";
                 continue;
             }
-            $this->html .= "<a class='animate leave' href='" . $path . "/" . $page . "'>" . $name . "</a>";
+            $this->html .= str_replace( "//" , "/" , "<a class='animate leave' href='" . $path . "/" . $page . "'>" . $name . "</a>" );
         }
 
         $this->html .= "</nav>";
