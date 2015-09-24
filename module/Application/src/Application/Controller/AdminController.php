@@ -57,6 +57,8 @@ class AdminController extends AbstractActionController
                 );
                 $cat->exchangeArray( $data );
                 $table->add( $cat );
+                
+                return $this->redirect()->toUrl( $this->url()->fromRoute("application/admin") . "kategorie" );
             }
             else
             {

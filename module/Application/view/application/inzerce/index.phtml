@@ -1,17 +1,13 @@
 <?php echo $this->menu; ?>
 
-<div class="shadow area">
-    <h3>Kategorie</h3>
+<div id="kategorie">
     <?php foreach( $this->kategorie as $row ) : ?>
-        <ul class="categories">
-            <?php if( $row["data"]->typ !== 'inzeraty' ) continue; ?>
-            <li><?php echo $row["data"]->nazev; ?></li>
-        </ul>
-        <?php if( !empty( $row["children"] ) ) : foreach( $row["children"] as $child ) : ?>    
-            <ul class="subcategories">
+        <?php if( $row["data"]->typ !== 'inzeraty' ) continue; ?>
+        <ul class="category shadow">
+            <li class="heading"><?php echo $row["data"]->nazev; ?></li>
+            <?php if( !empty( $row["children"] ) ) : foreach( $row["children"] as $child ) : ?>    
                 <li><?php echo $child["data"]->nazev; ?></li>
-            </ul>
-        <?php endforeach; endif;?>
+            <?php endforeach; endif;?>
+        </ul>
     <?php endforeach; ?>
-    
 </div>

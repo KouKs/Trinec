@@ -110,12 +110,38 @@ table tbody tr td , table tbody tr { line-height: 30px; }
     font-size: 14px;    
 }
 
-.categories {
+.category {
+    margin: 20px 15px 0 0;
+    width: 280px; max-height: 400px;
+    float: left;
+    background: #fff;
+}
+
+.category li {
     padding: 5px;
+    cursor: pointer;
 }
-.subcategories {
-    padding: 5px 15px;
+
+.category li.heading {
+    width: 86%;
+    padding: 5px 5%;
+    margin: 5px 2% 0 2%;
+    font-size: 20px;
+    border-bottom: 2px solid #009CFF;
+    cursor: default;
 }
+
+.category:nth-child(3n){
+    margin: 20px 0 0 0;
+}
+
+.category li:hover {
+    background: #eee;
+}
+.category li.heading:hover {
+    background: #fff;
+}
+
 /**
  * Ikony
  */
@@ -127,4 +153,4 @@ table tbody tr td , table tbody tr { line-height: 30px; }
 .icon-vip { background: url( ../img/vip.png ); }
 .icon-luxury { background: url( ../img/luxury.png ); }
 .icon-firm { background: url( ../img/firma.png ); }
-.icon-delete {};
+
