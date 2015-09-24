@@ -60,6 +60,13 @@ class Kategorie implements InputFilterAwareInterface {
                 ),
             ));
 
+            $inputFilter->add( array(
+                'name'     => 'kategorie',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
             $this->inputFilter = $inputFilter;
         }
 

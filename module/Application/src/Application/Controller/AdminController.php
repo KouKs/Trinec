@@ -46,13 +46,13 @@ class AdminController extends AbstractActionController
             $cat = new Kategorie( );
             $form->setInputFilter( $cat->getInputFilter( ) );
             $form->setData( $request->getPost( ) );
-
+            
             if( $form->isValid( ) )
             {
                 $data = array( 
                     'nazev' => $form->getData()["nazev"],
                     'level' => $form->getData()["kategorie"] ? 1 : 0,
-                    'typ' => $form->getData()["typ"],
+                    'typ'   => $form->getData()["typ"],
                     'parent' => $form->getData()["kategorie"],
                     'aktivni' => 1,
                 );
@@ -86,7 +86,10 @@ class AdminController extends AbstractActionController
 
     private function buildSelect($result)
     {
-        $ret = array( "Hlavní kategorie" );
+        $ret[] = array( 
+            "label" => "Hlavní kategorie" , 
+            "value" => 0,
+        );
         foreach( $result as $row )
         {   
             if( !$row->level )
@@ -94,6 +97,9 @@ class AdminController extends AbstractActionController
                 $ret[] = array( 
                     'value' => $row->id,
                     'label' => $row->nazev,
+                    'attributes' => array(
+                        'data-key' => $row->typ,
+                    ),
                 );
             }
         }

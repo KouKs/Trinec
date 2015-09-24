@@ -21,17 +21,44 @@ class KategorieForm extends Form
         $this->add(array(
             'name' => 'kategorie',
             'type' => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'id' => 'cat',
+                'style' => 'display: none;'
+            ),
             'options' => array(
+                'empty_option' => array(
+                    'label' => 'Vyberte umístění kategorie',
+                        'attributes' => array(
+                            'selected' => 'selected',
+                            'disabled' => 'disabled',
+                        ),
+                ),
                 'value_options' => $kategorie
             ),
         ));
         $this->add(array(
             'name' => 'typ',
             'type' => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'id' => 'typ',
+            ),
             'options' => array(
+                'empty_option' => array(
+                    'label' => 'Vyberte typ kategorie',
+                        'attributes' => array(
+                            'selected' => 'selected',
+                            'disabled' => 'disabled',
+                        ),
+                ),
                 'value_options' => array(
-                    'firmy' => 'Firmy',
-                    'inzeraty' => 'Inzeráty',
+                    array(
+                        'value' => 'firmy',
+                        'label' => 'Firmy'
+                    ),
+                    array(
+                        'value' => 'inzeraty',
+                        'label' => 'Inzeráty'
+                    ),
                 ),
             ),
         ));
@@ -40,7 +67,7 @@ class KategorieForm extends Form
             'type' => 'Submit',
             'attributes' => array(
                 'value' => 'Přidat',
-                'class' => 'btn btn-info leave',
+                'class' => 'btn btn-info',
             ),
         ));
     }

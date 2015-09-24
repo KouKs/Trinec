@@ -34,7 +34,7 @@
     <?php echo $this->form()->closeTag(); ?>
 </div>
 <div class="shadow area">
-    <h3>Seznam kategorií</h3>
+    <h3>Seznam kategorií firem</h3>
     <table class="table-stripped table-hover">
         <tr>
             <th>Název</th>
@@ -42,6 +42,7 @@
             <th></th>
         </tr>
         <?php foreach( $this->kategorie as $row ) : ?>
+            <?php if( $row["data"]->typ !== "firmy" ) continue; ?>
             <tr id="cat-<?php echo $row["data"]->id; ?>">
                 <td width="50%"><input onKeyUp="toggleButton( this )" type="text" value="<?php echo $row["data"]->nazev; ?>"/>
                     <button class="btn btn-info"
@@ -71,40 +72,106 @@
     </table>
 </div>
 
+<div class="shadow area">
+    <h3>Seznam kategorií inzerátů</h3>
+    <table class="table-stripped table-hover">
+        <tr>
+            <th>Název</th>
+            <th>Rodičovská kategorie</th>
+            <th></th>
+        </tr>
+        <?php foreach( $this->kategorie as $row ) : ?>
+            <?php if( $row["data"]->typ !== "inzeraty" ) continue; ?>
+            <tr id="cat-<?php echo $row["data"]->id; ?>">
+                <td width="50%"><input onKeyUp="toggleButton( this )" type="text" value="<?php echo $row["data"]->nazev; ?>"/>
+                    <button class="btn btn-info"
+                            style="display: none"
+                            onClick="update( '<?php echo $row["data"]->id; ?>' , $(this).prev().val() , this )">Změnit</button>
+                </td>
+                <td><strong>Hlavní kategorie</strong></td>
+                <td width="32px">
+                    <?php if( empty( $row["children"] ) ) : ?>
+                        <button class="btn btn-danger" onClick="_delete( '<?php echo $row["data"]->id; ?>' )">&nbsp;</button>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php if( !empty( $row["children"] ) ) : foreach( $row["children"] as $child ) : ?>
+                <tr id="cat-<?php echo $child["data"]->id; ?>">
+                    <td><input onKeyUp="toggleButton( this )" type="text" value="<?php echo $child["data"]->nazev; ?>"/>
+                        <button class="btn btn-info"
+                                style="display: none"
+                                onClick="update( '<?php echo $child["data"]->id; ?>' , $(this).prev().val() , this )">Změnit</button>
+                    </td>
+                    <td><?php echo $child["parentString"]; ?></td>
+                    <td width="32px"><button class="btn btn-danger"
+                                             onClick="_delete( '<?php echo $child["data"]->id; ?>' )">&nbsp;</button></td>
+                </tr>
+            <?php endforeach; endif; ?>
+        <?php endforeach; ?>
+    </table>
+</div>
 
 <script type="text/javascript"> 
-    function update( id , value , button ) {
-        
-        $.post( _URL + "admin/editcategory" , { id: id, value: value },
-            function(obj) {
-                $(button).removeClass('btn-info').addClass('btn-success');
-                $(button).fadeOut( 1000 );
-            }
-        );
-    }
-    
-    function _delete( id ) {
-        
-        if( !confirm("Opravdu smazat?") ) return false;
-        
-        $.post( _URL + "admin/deletecategory" , { id: id },
-            function(obj) {
-                $("#cat-" + id ).fadeOut( "slow" , function( ) {
-                    $("#cat-" + id ).remove( );
-                });
-            }
-        );
-    }
-    
-    function toggleButton( input )
+function update( id , value , button ) {
+
+    $.post( _URL + "admin/editcategory" , { id: id, value: value },
+        function(obj) {
+            $(button).removeClass('btn-info').addClass('btn-success');
+            $(button).fadeOut( 1000 );
+        }
+    );
+}
+
+function _delete( id ) {
+
+    if( !confirm("Opravdu smazat?") ) return false;
+
+    $.post( _URL + "admin/deletecategory" , { id: id },
+        function(obj) {
+            $("#cat-" + id ).fadeOut( "slow" , function( ) {
+                $("#cat-" + id ).remove( );
+            });
+        }
+    );
+}
+
+function toggleButton( input )
+{
+    if( input.value === input.defaultValue )
     {
-        if( input.value === input.defaultValue )
-        {
-            $( input ).next( ).hide();
-        }
-        else
-        {
-            $( input ).next( ).show();
-        }
+        $( input ).next( ).hide();
     }
+    else
+    {
+        $( input ).next( ).show();
+    }
+}
+
+$(document).ready( function( ) {
+    $("#typ").change(function( ) {
+        
+        console.log($(this).val() );
+        if( $(this).val() === '' )
+        {
+            $("#cat").hide( );
+            $("#cat").val( '' );
+        }
+        else if( $(this).val() === 'firmy' )
+        {
+            $("#cat").show( );
+            $("#cat").val( '' );
+            $("[data-key='firmy']").show( );
+            $("[data-key='inzeraty']").hide( );
+        }
+        else if( $(this).val() === 'inzeraty' )
+        {
+            $("#cat").show( );
+            $("#cat").val( '' );
+            $("[data-key='inzeraty']").show( );
+            $("[data-key='firmy']").hide( );
+        }
+    });
+    
+});
+
 </script>
