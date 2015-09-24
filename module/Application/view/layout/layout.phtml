@@ -40,8 +40,11 @@
                     <a class="animate leave" href="<?php echo $this->basePath("firmy"); ?>">firmy</a>
                     <a class="animate leave" href="<?php echo $this->basePath("diskuze"); ?>">diskuze</a>
                     <a class="animate leave" href="<?php echo $this->basePath("clanky"); ?>">články</a>
-                    
-                    <a id="login" class="animate" href="<?php echo $this->basePath("login"); ?>">login</a>
+                    <?php if( $this->user->boolLogged ) : ?>
+                        <a id="login" class="animate" href="<?php echo $this->basePath("profil"); ?>">profil</a>
+                    <?php else : ?>
+                        <a id="login" class="animate" href="<?php echo $this->basePath("login"); ?>">login</a>
+                    <?php endif; ?>
                 </nav>
                 <div id="header-banner"></div>
             </header>

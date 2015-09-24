@@ -34,7 +34,7 @@ class IndexController extends AbstractActionController
 
     public function loginAction()
     {          
-        if( !isset( $this->logged->nick ) ) {
+        if( !$this->logged->boolLogged ) {
             $form = new LoginForm();
             $request = $this->getRequest();
             if( $request->isPost( ) )
@@ -57,6 +57,7 @@ class IndexController extends AbstractActionController
                         foreach( $user as $u ) {
                             $this->logged->nick = $u->nick;
                             $this->logged->admin = $u->admin;
+                            $this->logged->boolLogged = true;
                             return $this->redirect()->toRoute('application/default', array(
                                         'controller' => 'profil'
                             ));

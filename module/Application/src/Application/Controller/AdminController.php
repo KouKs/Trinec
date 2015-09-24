@@ -28,7 +28,7 @@ class AdminController extends AbstractActionController
     
     public function indexAction()
     {
-        return $this->redirect()->toRoute('application/admin/kategorie');
+        return $this->redirect()->toUrl( $this->url()->fromRoute("application/admin") . "kategorie" );
     }
     
     /***************************************

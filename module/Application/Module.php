@@ -36,6 +36,8 @@ class Module
             'use_cookies' => true,
             'cookie_httponly' => true,
         ));
+        
+        $eventManager->attach('dispatch', array($this, 'loadConfiguration' ));
     }
 
     public function getConfig()
@@ -110,5 +112,11 @@ class Module
         $sessionManager = new SessionManager($sessionConfig);
         $sessionManager->start();
         Container::setDefaultManager($sessionManager);
+    }
+    
+    public function loadConfiguration(MvcEvent $e)
+    {           
+        $controller = $e->getTarget();
+        $controller->layout()->user = new Container('user');
     }
 }
