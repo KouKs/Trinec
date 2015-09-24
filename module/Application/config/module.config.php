@@ -123,6 +123,32 @@ return array(
                             ),
                         ),
                     ),
+                    /*
+                     * inzeraty
+                     */
+                    'inzeraty' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'inzeraty/',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\Inzeraty',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route'    => '[:action]/',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
@@ -150,7 +176,8 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
-            'Application\Controller\Profil' => 'Application\Controller\ProfilController'
+            'Application\Controller\Profil' => 'Application\Controller\ProfilController',
+            'Application\Controller\Inzeraty' => 'Application\Controller\InzeratyController',
         ),
     ),
     'view_manager' => array(

@@ -3,7 +3,6 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Application\Form\KategorieForm;
 use Application\Model\Kategorie;
 use Application\Model\Msg;
