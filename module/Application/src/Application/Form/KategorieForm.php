@@ -26,6 +26,16 @@ class KategorieForm extends Form
             ),
         ));
         $this->add(array(
+            'name' => 'typ',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'value_options' => array(
+                    'firmy' => 'Firmy',
+                    'inzeraty' => 'Inzeráty',
+                ),
+            ),
+        ));
+        $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(

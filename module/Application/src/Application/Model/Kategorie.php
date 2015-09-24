@@ -15,6 +15,7 @@ class Kategorie implements InputFilterAwareInterface {
     public $id;
     public $nazev;
     public $level;
+    public $typ;
     public $parent;
     public $aktivni;
     
@@ -25,6 +26,7 @@ class Kategorie implements InputFilterAwareInterface {
         $this->id     = @$data['id'];
         $this->nazev  = @$data['nazev'];
         $this->level  = @$data['level'];
+        $this->typ    = @$data['typ'];
         $this->parent = @$data['parent'];
         $this->aktivni= @$data['aktivni'];
     }

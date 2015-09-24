@@ -11,6 +11,7 @@ use Application\Form\LoginForm;
 use Application\Form\RegisterForm;
 use Application\Model\User;
 use Application\Model\Msg;
+use Application\Model\Menu;
 
 class IndexController extends AbstractActionController
 {

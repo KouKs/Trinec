@@ -52,6 +52,7 @@ class AdminController extends AbstractActionController
                 $data = array( 
                     'nazev' => $form->getData()["nazev"],
                     'level' => $form->getData()["kategorie"] ? 1 : 0,
+                    'typ' => $form->getData()["typ"],
                     'parent' => $form->getData()["kategorie"],
                     'aktivni' => 1,
                 );

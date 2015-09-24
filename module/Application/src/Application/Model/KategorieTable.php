@@ -28,6 +28,7 @@ class KategorieTable {
         $data = array( 
             'nazev' => $cat->nazev,
             'level' => $cat->level,
+            'typ' => $cat->typ,
             'parent' => $cat->parent,
             'aktivni' => $cat->aktivni,
         );
