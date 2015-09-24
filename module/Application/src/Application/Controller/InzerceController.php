@@ -10,6 +10,10 @@ use Zend\Session\Container;
 class InzerceController extends AbstractActionController
 {
 
+    
+    /*##################################
+     * Kategorie
+     */
     public function indexAction()
     {
         $table = $this->getCategoryTable();
@@ -51,6 +55,22 @@ class InzerceController extends AbstractActionController
             }
         }
         return $ret;
+    }
+    
+    
+    /*##################################
+     * Pridavani
+     */
+    public function pridatAction( )
+    {
+        
+        
+        return [
+            'menu' => new Menu( $this->url()->fromRoute("application/inzerce") , array( 
+                                        "vypis" => "výpis", 
+                                        "pridat" => "přidat nový",
+                               ) , "pridat" ),
+        ];
     }
 }
 
