@@ -1,4 +1,12 @@
-<?php echo $this->menu; ?>
+<?php $this->menu( $this->basePath("admin") , array( 
+          'kategorie',
+          'log',
+          'schvalovani' => "schvalování",
+          'bannery'
+      ) , 'kategorie' ); ?>
+
+<?php $this->messenger( $this->succes , $this->notice , $this->error ); ?>
+
 
 <?php if( isset( $this->error ) ) : ?>
 <div class="shadow area error">

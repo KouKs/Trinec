@@ -1,10 +1,10 @@
-<?php echo $this->menu; ?>
+<?php $this->menu( $this->basePath("") , array( 
+          'login',
+          'registrace',
+          'obnova' => "obnova hesla",
+      ) , 'login' ); ?>
 
-<?php if( isset( $this->error ) ) : ?>
-<div class="shadow area error">
-    <?php echo $this->error; ?>
-</div>
-<?php endif; ?> 
+<?php $this->messenger( $this->succes , $this->notice , $this->error ); ?>
 
 <div class="shadow area">
     <h3>Přihlášení</h3>

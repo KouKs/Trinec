@@ -21,10 +21,6 @@ class InzerceController extends AbstractActionController
         
         return [
             'kategorie' => $this->buildHierarchy( $table->fetchAll( ) ),
-            'menu' => new Menu( $this->url()->fromRoute("application/inzerce") , array( 
-                                        "vypis" => "výpis", 
-                                        "pridat" => "přidat nový",
-                               ) , "vypis" ),
         ];
     }
 
@@ -66,10 +62,6 @@ class InzerceController extends AbstractActionController
         
         
         return [
-            'menu' => new Menu( $this->url()->fromRoute("application/inzerce") , array( 
-                                        "vypis" => "výpis", 
-                                        "pridat" => "přidat nový",
-                               ) , "pridat" ),
         ];
     }
 }

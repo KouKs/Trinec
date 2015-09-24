@@ -72,12 +72,6 @@ class AdminController extends AbstractActionController
             'kategorie'     => $kategorie,
             'form'          => $form,
             'error'         => isset( $error ) ? $error : null,
-            'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
-                                        "kategorie", 
-                                        "log",
-                                        "schvalovani" => "schvalování",
-                                        "bannery",
-                               ) , "kategorie" ),
         );
     }
     private function getCategoryTable()
@@ -163,12 +157,6 @@ class AdminController extends AbstractActionController
         return array( 
             'bannery'       => $this->buildBanners( $bannery->select( "aktivni=0" , "uzivatele" , "uzivatele.id = banner.autor_id" , array("nick" , "jmeno" , "prijmeni") ) ),
             'error'         => isset( $error ) ? $error : null,
-            'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
-                                        "kategorie", 
-                                        "log",
-                                        "schvalovani" => "schvalování",
-                                        "bannery",
-                               ) , "schvalovani" ),
         );
     }
     
@@ -183,12 +171,6 @@ class AdminController extends AbstractActionController
         return array( 
             'bannery'       => $this->buildBanners( $table->select( "zaplaceno=1" , "uzivatele" , "uzivatele.id = banner.autor_id" , array("nick" , "jmeno" , "prijmeni") ) ),
             'error'         => isset( $error ) ? $error : null,
-            'menu'          => new Menu( $this->url()->fromRoute("application/admin") , array( 
-                                        "kategorie", 
-                                        "log",
-                                        "schvalovani" => "schvalování",
-                                        "bannery",
-                               ) , "bannery" ),
         );
     }
     

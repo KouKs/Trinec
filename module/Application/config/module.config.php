@@ -8,6 +8,22 @@
  */
 
 return array(
+    'view_helpers' => array(
+        'factories' => array(
+            'menu' => function($sm) {
+                $helper = new Application\Helper\Menu();
+                return $helper;           
+            },
+            'messenger' => function($sm) {
+                $helper = new Application\Helper\Messenger();
+                return $helper;           
+            },
+        ),
+        'invokables' => array(
+            'menu' => 'Application\Helper\Menu', 
+            'messenger' => 'Application\Helper\Messenger', 
+        ),  
+    ),
     'router' => array(
         'routes' => array(
             'home' => array(

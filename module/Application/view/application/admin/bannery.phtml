@@ -1,4 +1,11 @@
-<?php echo $this->menu; ?>
+<?php $this->menu( $this->basePath("admin") , array( 
+          'kategorie',
+          'log',
+          'schvalovani' => "schvalování",
+          'bannery'
+      ) , 'bannery' ); ?>
+
+<?php $this->messenger( $this->succes , $this->notice , $this->error ); ?>
 
 <?php 
 $data = [];

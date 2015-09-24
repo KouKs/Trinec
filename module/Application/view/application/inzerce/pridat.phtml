@@ -1,1 +1,6 @@
-<?php echo $this->menu; ?>
+<?php $this->menu( $this->basePath("inzerce") , array( 
+          '' => 'vypis',
+          'pridat' => 'přidat nový',
+      ) , 'pridat' ); ?>
+
+<?php $this->messenger( $this->succes , $this->notice , $this->error ); ?>
