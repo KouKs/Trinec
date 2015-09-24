@@ -110,7 +110,12 @@ table tbody tr td , table tbody tr { line-height: 30px; }
     font-size: 14px;    
 }
 
-
+.categories {
+    padding: 5px;
+}
+.subcategories {
+    padding: 5px 15px;
+}
 /**
  * Ikony
  */

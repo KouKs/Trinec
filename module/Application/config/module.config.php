@@ -126,12 +126,12 @@ return array(
                     /*
                      * inzeraty
                      */
-                    'inzeraty' => array(
+                    'inzerce' => array(
                         'type'    => 'Literal',
                         'options' => array(
-                            'route'    => 'inzeraty/',
+                            'route'    => 'inzerce/',
                             'defaults' => array(
-                                'controller' => 'Application\Controller\Inzeraty',
+                                'controller' => 'Application\Controller\Inzerce',
                             ),
                         ),
                         'may_terminate' => true,
@@ -177,7 +177,7 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
             'Application\Controller\Profil' => 'Application\Controller\ProfilController',
-            'Application\Controller\Inzeraty' => 'Application\Controller\InzeratyController',
+            'Application\Controller\Inzerce' => 'Application\Controller\InzerceController',
         ),
     ),
     'view_manager' => array(

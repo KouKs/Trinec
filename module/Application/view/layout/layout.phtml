@@ -34,12 +34,13 @@
                     <input placeholder="Hledat" id="search" type="text">
                 </div>
                 <nav>
-                    <a class="animate leave" href="">domů</a>
-                    <a class="animate leave" href="">pizza</a>
-                    <a class="animate leave" href="">inzerce</a>
-                    <a class="animate leave" href="">firmy</a>
-                    <a class="animate leave" href="">diskuze</a>
-                    <a class="animate leave" href="">články</a>
+                    <a class="animate leave" href="<?php echo $this->basePath(""); ?>">domů</a>
+                    <a class="animate leave" href="<?php echo $this->basePath("pizza"); ?>">pizza</a>
+                    <a class="animate leave" href="<?php echo $this->basePath("inzerce"); ?>">inzerce</a>
+                    <a class="animate leave" href="<?php echo $this->basePath("firmy"); ?>">firmy</a>
+                    <a class="animate leave" href="<?php echo $this->basePath("diskuze"); ?>">diskuze</a>
+                    <a class="animate leave" href="<?php echo $this->basePath("clanky"); ?>">články</a>
+                    
                     <a id="login" class="animate" href="/login">login</a>
                 </nav>
                 <div id="header-banner"></div>

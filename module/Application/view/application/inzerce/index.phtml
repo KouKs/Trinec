@@ -1,0 +1,17 @@
+<?php echo $this->menu; ?>
+
+<div class="shadow area">
+    <h3>Kategorie</h3>
+    <?php foreach( $this->kategorie as $row ) : ?>
+        <ul class="categories">
+            <?php if( $row["data"]->typ !== 'inzeraty' ) continue; ?>
+            <li><?php echo $row["data"]->nazev; ?></li>
+        </ul>
+        <?php if( !empty( $row["children"] ) ) : foreach( $row["children"] as $child ) : ?>    
+            <ul class="subcategories">
+                <li><?php echo $child["data"]->nazev; ?></li>
+            </ul>
+        <?php endforeach; endif;?>
+    <?php endforeach; ?>
+    
+</div>
