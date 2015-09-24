@@ -154,6 +154,13 @@ p {
     text-align: justify;
 }
 /**
+* bannery
+*/
+.banner-table {
+    display: inline-block;
+    padding-bottom: 20px;
+}
+/**
  * media
  */
 

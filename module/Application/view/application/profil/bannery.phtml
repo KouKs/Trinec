@@ -113,8 +113,35 @@ if( !empty( $this->bannery ) )
     </form>
 </div>
 
-<div class="shadow area hidden" >
-    <h3>Zakoupené bannery</h3>
+<div class="shadow area" >
+    <?php   $form = $this->form;
+            $form->prepare();
+            echo $this->form()->openTag($form); ?>
+        <h3>Objednané bannery</h3>
+        <?php foreach( $this->bannery as $banner ) : ?>
+            <?php if( $banner['data']->nick == $this->user && $banner['data']->zaplaceno == 1 ) : ?>
+                <table class="table-form banner-table">
+                    <?php echo $this->formRow($form->get('banner')->setValue( $banner['data']->id ));?>
+                    <tr>
+                        <td> <strong>Váš banner</strong> <td>pozice <?= $banner['data']->pozice ?>, čas <?= $banner['parsedTime'] ?>
+                    </tr>
+                    <tr>
+                        <td width="30%">URL</td>
+                        <td width="46%"><?php echo $this->formRow($form->get('url')); ?></td>
+                    </tr>
+                    <tr>
+                        <td>Obrázek</td>
+                        <td><?php echo $this->formRow($form->get('soubor')); ?></td>
+                    </tr>
+                    <tr>
+                        <td><td class="colspan" colspan="2"><?php echo $this->formSubmit($form->get('submit')); ?></td>
+                    </tr>
+                </table>
+            <?php elseif ( $banner['data']->nick == $this->user && $banner['data']->zaplaceno == 0 ) : ?>
+                <p>:(</p>  
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php echo $this->form()->closeTag(); ?>
 </div>
 
 <script>

@@ -7,6 +7,7 @@ use Application\Model\Menu;
 use Zend\Session\Container;
 use Application\Model\Msg;
 use Application\Model\Banner;
+use Application\Form\BannerForm;
 
 class ProfilController extends AbstractActionController
 {
@@ -62,8 +63,34 @@ class ProfilController extends AbstractActionController
     public function banneryAction()
     {
         $table = $this->getBannerTable( );
+        $msg = false;
+        $form = new BannerForm();
+            $request = $this->getRequest();
+            if( $request->isPost( ) )
+            {
+                $banner = new Banner( );
+                $form->setInputFilter( $banner->getInputFilter(  ) );
+                $form->setData( $request->getPost( ) );
+
+                if( $form->isValid( ) )
+                {
+                    $data = array( 
+                        'id' => $form->getData()['banner'],
+                        'url' => $form->getData()['url'],
+                        //'file' => $form->getData()['soubor']
+                    );
+                    
+                    $table->edit( $data['id'] , array( "url" => $data['url'] /*, "file" => 'file_name'*/ ) );
+                }
+                else
+                {
+                    $msg = $this->msg->get( 'form.error.invalidData');
+                }
+            }
         
         return [
+            'form' => $form,
+            'message' => $msg,
             'user' => $this->logged->nick,
             'bannery' => $this->buildBanners( $table->select( "zaplaceno=1" , "uzivatele" , "uzivatele.id = banner.autor_id" , array("nick" , "jmeno" , "prijmeni") ) ),
             'menu' => new Menu( $this->url()->fromRoute("application/profil") , array( 
